@@ -63,7 +63,7 @@ Make sure to comment your code.  You should use XML commenting by typing â€œ///â
     }
 ```
 
-//Decide prefered method of communication: email, text, IM (Slack, Skype, Hangouts), Canvas, etc
+Skype and Github repository page for all team communication
 
 
 Assign each person to do dev work for one window and tester work for another.
@@ -74,8 +74,8 @@ Group Assignment Prototype
 -Interfaces
 -SQL
 
-1 Main Window - DEV:     - QA:
+1 Main Window (Invoice)  - DEV:Lili     - QA:Josh
 
-2 Search Window - DEV:     - QA:
+2 Search Window 	     - DEV:Cameron  - QA:Lili
 
-3 Edit Inventory Window - DEV:     - QA:
+3 Edit Inventory Window  - DEV:Josh	    - QA:Cameron
