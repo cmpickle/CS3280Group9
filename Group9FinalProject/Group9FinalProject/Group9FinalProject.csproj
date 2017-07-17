@@ -62,6 +62,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="clsDataAccess.cs" />
+    <Compile Include="clsInvoice.cs" />
+    <Compile Include="clsItem.cs" />
+    <Compile Include="clsPopulateInvoicePg.cs" />
+    <Compile Include="clsSQL.cs" />
+    <Compile Include="InvoiceDataSet.cs">
+      <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="InvoiceDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
