@@ -5,8 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Group9FinalProject"
         mc:Ignorable="d"
-        Title="SearchWindow" Height="600" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Search Invoices" Height="600" Width="800" WindowStartupLocation="CenterScreen" ShowInTaskbar="False">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Margin="0, 10">
+            <WrapPanel Margin="0 , 0, 20, 0">
+                <Label Content="Invoice #" />
+                <ComboBox Name="cboInvoiceNum" Width="80"/>
+            </WrapPanel>
+            <WrapPanel Margin="20, 0">
+                <Label Content="Date" />
+                <ComboBox Name="cboInvoiceDate" Width="80"/>
+            </WrapPanel>
+            <WrapPanel Margin="20, 0">
+                <Label Content="Total Cost" />
+                <ComboBox Name="cboTotalCost" Width="80"/>
+            </WrapPanel>
+        </StackPanel>
+        <DataGrid Name="dgSearchPane" Height="450" Width="650" AutoGenerateColumns="False" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Invoice #" Binding="{Binding InvoiceNum}" IsReadOnly="True" Width="80"></DataGridTextColumn>
+                <DataGridTextColumn Header="Invoice Date" Binding="{Binding InvoiceDate}" IsReadOnly="True" Width="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Total Charge" Binding="{Binding TotalCharge}" IsReadOnly="True"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+            <Button Name="btnSearchWindowCancel" Content="Cancel" Margin="20, 20, 30, 10" Padding="10, 5" Click="btnSearchWindowCancel_Click"/>
+            <Button Name="btnSearchWindowSelect" Content="Select" Margin="30, 20, 20, 10" Padding="10, 5" Click="btnSearchWindowSelect_Click"/>
+        </StackPanel>
+    </StackPanel>
 </Window>

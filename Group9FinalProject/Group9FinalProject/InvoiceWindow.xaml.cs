@@ -33,11 +33,6 @@ namespace Group9FinalProject
         clsInvoice currInvoice;
 
         /// <summary>
-        /// This is the object of SearchWindow
-        /// </summary>
-        SearchWindow SearchWindowPg;
-
-        /// <summary>
         /// This is the constructor of InvoiceWindow class
         /// </summary>
         public InvoiceWindow()
@@ -76,18 +71,18 @@ namespace Group9FinalProject
         }
 
         /// <summary>
+        /// The event handler for the Search Menu Item.
         /// This is triggered when the user hits the menu item Search For Invoice
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender object</param>
+        /// <param name="e">The event args</param>
         private void miSearchInovice_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 // has to discuss how to pass the Invoice object back to the main window to be displayed
-                SearchWindowPg = new SearchWindow();
-                this.Hide();
-                SearchWindowPg.ShowDialog();
+                SearchWindow searchWindow = new SearchWindow();
+                searchWindow.ShowDialog();
             }
             catch (Exception ex)
             {

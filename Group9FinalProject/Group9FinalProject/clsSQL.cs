@@ -56,5 +56,59 @@ namespace Group9FinalProject
             string sSQL = "SELECT MAX(InvoiceNum) FROM Invoices";
             return sSQL;
         }
+
+#region Invoice Selection statements
+        /// <summary>
+        /// This SQL statement gets all the information about every invoice
+        /// </summary>
+        /// <returns>SQL string</returns>
+        public String SelectAllInvoices()
+        {
+            string sSQL = "SELECT InvoiceNum, InvoiceDate, TotalCharge FROM Invoices";
+            return sSQL;
+        }
+
+        /// <summary>
+        /// This SQL statement gets every entry that is associated with the given invoice number
+        /// </summary>
+        /// <param name="number">The invoice number</param>
+        /// <returns>SQL string</returns>
+        public String SelectInvoiceByNumber(int number)
+        {
+            string sSQL = String.Format("SELECT InvoiceNum, InvoiceDate, TotalCharge FROM Invoices WHERE InvoiceNum = {0};", number);
+            return sSQL;
+        }
+
+        /// <summary>
+        /// Select all of the distinct invoice numbers from the database
+        /// </summary>
+        /// <returns>SQL string</returns>
+        public String SelectAllInvoiceNumbers()
+        {
+            String sSQL = "SELECT DISTINCT InvoiceNum FROM Invoices;";
+            return sSQL;
+        }
+
+        /// <summary>
+        /// Select all of the distinct Invoice date values from the database
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns>SQL string</returns>
+        public String SelectAllInvoiceDate()
+        {
+            String sSQL = "SELECT DISTINCT InvoiceDate FROM Invoices;";
+            return sSQL;
+        }
+
+        /// <summary>
+        /// Select all of the distinct Invoice total cost values from the database
+        /// </summary>
+        /// <returns>SQL string</returns>
+        public String SelectAllInvoiceTotalCost()
+        {
+            String sSQL = "SELECT DISTINCT TotalCharge FROM Invoices;";
+            return sSQL;
+        }
+#endregion
     }
 }
