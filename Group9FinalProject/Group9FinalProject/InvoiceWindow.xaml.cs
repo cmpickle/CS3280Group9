@@ -54,6 +54,26 @@ namespace Group9FinalProject
             }
         }
 
+        /// <summary>
+        /// The event handler for the Search Menu Item
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="e">The event args</param>
+        private void miSearchInovice_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SearchWindow searchWindow = new SearchWindow();
+                searchWindow.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                //This is the top level method so we want to handle the exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// Handle the error.
@@ -73,7 +93,6 @@ namespace Group9FinalProject
                                              "HandleError Exception: " + ex.Message);
             }
         }
-
     }
     
 }
