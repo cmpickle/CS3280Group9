@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Group9FinalProject
 {
+    /// <summary>
+    /// This is the class that holds all the SQL queries
+    /// </summary>
     class clsSQL
     {
         /// <summary>
@@ -13,13 +16,13 @@ namespace Group9FinalProject
         /// </summary>
         /// <param name="sInvoiceID">The InvoiceID for the invoice to retrieve all data.</param>
         /// <returns>All data for the given invoice.</returns>
-        public string SelectInvoiceData(string sInvoiceID)
+        public string SelectInvoiceData(string InvoiceNum)
         {
             string sSQL = "SELECT Invoices.InvoiceNum, InvoiceDate, TotalCharge, ItemDesc.ItemCode, ItemDesc, Cost, LineItemNum "
                 + "FROM Invoices, ItemDesc, LineItems "
                 + "WHERE Invoices.InvoiceNum = LineItems.InvoiceNum "
-                + "AND ItemDesc.ItemCode = LineItems.ItemCode" 
-                + "AND Invoices.InvoiceNum = " + sInvoiceID;
+                + "AND ItemDesc.ItemCode = LineItems.ItemCode " 
+                + "AND Invoices.InvoiceNum = " + InvoiceNum;
             return sSQL;
         }
 
