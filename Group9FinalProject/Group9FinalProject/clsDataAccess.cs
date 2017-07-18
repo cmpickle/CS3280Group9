@@ -23,7 +23,7 @@ public class clsDataAccess
     }
 
     /// <summary>
-    /// This method takes an SQL statment that is passed in and executes it.  The resulting values
+    /// This method takes an SQL statement that is passed in and executes it.  The resulting values
     /// are returned in a DataSet.  The number of rows returned from the query will be put into
     /// the reference parameter iRetVal.
     /// </summary>
@@ -67,7 +67,7 @@ public class clsDataAccess
     }
 
     /// <summary>
-    /// This method takes an SQL statment that is passed in and executes it.  The resulting single 
+    /// This method takes an SQL statement that is passed in and executes it.  The resulting single 
     /// value is returned.
     /// </summary>
     /// <param name="sSQL">The SQL statement to be executed.</param>
@@ -115,7 +115,7 @@ public class clsDataAccess
     }
 
     /// <summary>
-    /// This method takes an SQL statment that is a non query and executes it.
+    /// This method takes an SQL statement that is a non query and executes it.
     /// </summary>
     /// <param name="sSQL">The SQL statement to be executed.</param>
     /// <returns>Returns the number of rows affected by the SQL statement.</returns>

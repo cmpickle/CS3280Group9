@@ -54,6 +54,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="InventoryWindow.xaml.cs">
+      <DependentUpon>InventoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SearchWindow.xaml.cs">
+      <DependentUpon>SearchWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="InventoryWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="InvoiceWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -64,6 +74,7 @@
     </Compile>
     <Compile Include="clsDataAccess.cs" />
     <Compile Include="clsInvoice.cs" />
+    <Compile Include="clsInvoiceItem.cs" />
     <Compile Include="clsItem.cs" />
     <Compile Include="clsPopulateInvoicePg.cs" />
     <Compile Include="clsSQL.cs" />
@@ -79,6 +90,10 @@
       <DependentUpon>InvoiceWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SearchWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
