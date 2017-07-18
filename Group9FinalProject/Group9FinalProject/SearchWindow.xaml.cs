@@ -21,30 +21,46 @@ namespace Group9FinalProject
     /// </summary>
     public partial class SearchWindow : Window
     {
+#region class fields
+        /// <summary>
+        /// This object holds all of the searching business logic and search methods
+        /// </summary>
         clsSearch search = new clsSearch();
+        #endregion
 
+#region constructor
+        /// <summary>
+        /// The default constructor
+        /// </summary>
         public SearchWindow()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
 
-            //search.GetInvoices().ForEach(inv => dgSearchPane.Items.Add(inv));
-            List<String> sInvoiceNum = search.GetInvoices();
+                dgSearchPane.ItemsSource = search.GetInvoices();
 
-            search.GetInvoiceNums().ForEach(num => cboInvoiceNum.Items.Add(num));
+                search.GetInvoiceNums().ForEach(num => cboInvoiceNum.Items.Add(num));
 
-            search.GetInvoiceDates().ForEach(date => cboInvoiceDate.Items.Add(date));
+                search.GetInvoiceDates().ForEach(date => cboInvoiceDate.Items.Add(date));
 
-            search.GetTotalCost().ForEach(cost => cboTotalCost.Items.Add(cost));
-
-            //int iRet = 0;
-            //DataSet ds = flight.GetTableContents("Flight", ref iRet);
-
-            //for (int i = 0; i < iRet; ++i)
-            //{
-            //    cboChooseFlight.Items.Add(ds.Tables[0].Rows[i][1].ToString() + " " + ds.Tables[0].Rows[i].ItemArray[2].ToString());
-            //}
+                search.GetTotalCost().ForEach(cost => cboTotalCost.Items.Add(cost));
+            }
+            catch (Exception ex)
+            {
+                //This is the top level method so we want to handle the exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
         }
+        #endregion
 
+#region event handlers
+        /// <summary>
+        /// The event handler for the Select button
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="e">The event args</param>
         private void btnSearchWindowSelect_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -59,6 +75,11 @@ namespace Group9FinalProject
             }
         }
 
+        /// <summary>
+        /// The event handler for the cancel button
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="e">The event args</param>
         private void btnSearchWindowCancel_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -72,7 +93,9 @@ namespace Group9FinalProject
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
+        #endregion
 
+#region error handling
         /// <summary>
         /// Handle the error.
         /// </summary>
@@ -91,5 +114,6 @@ namespace Group9FinalProject
                                              "HandleError Exception: " + ex.Message);
             }
         }
+#endregion
     }
 }

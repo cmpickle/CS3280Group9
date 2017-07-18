@@ -21,14 +21,11 @@
                 <ComboBox Name="cboTotalCost" Width="80"/>
             </WrapPanel>
         </StackPanel>
-        <DataGrid Name="dgSearchPane" Height="450" Width="650">
+        <DataGrid Name="dgSearchPane" Height="450" Width="650" AutoGenerateColumns="False" SelectionMode="Single">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="#" Binding="{Binding Path=sInvoiceNum}" Width="40"></DataGridTextColumn>
-                <DataGridTextColumn Header="Line Item Number" Binding="{Binding Path=sLineItem}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Item Description" Binding="{Binding Path=sItemDescription}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Unit Price" Binding="{Binding Path=sUnitPrice}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Date" Binding="{Binding Path=sInvoiceDate}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Total Charge" Binding="{Binding Path=sTotalCharge}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Invoice #" Binding="{Binding InvoiceNum}" IsReadOnly="True" Width="80"></DataGridTextColumn>
+                <DataGridTextColumn Header="Invoice Date" Binding="{Binding InvoiceDate}" IsReadOnly="True" Width="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Total Charge" Binding="{Binding TotalCharge}" IsReadOnly="True"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >

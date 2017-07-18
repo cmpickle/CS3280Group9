@@ -57,18 +57,14 @@ namespace Group9FinalProject
             return sSQL;
         }
 
+#region Invoice Selection statements
         /// <summary>
         /// This SQL statement gets all the information about every invoice
         /// </summary>
         /// <returns>SQL string</returns>
         public String SelectAllInvoices()
         {
-            string sSQL = "SELECT i.InvoiceNum, l.LineItemNum, it.ItemDesc AS Expr1, it.Cost AS Expr2, i.InvoiceDate, i.TotalCharge "
-                            + "FROM(Invoices AS i "
-                            + "INNER JOIN LineItems AS l "
-                            + "ON i.InvoiceNum = l.InvoiceNum) "
-                            + "INNER JOIN ItemDesc AS it "
-                            + "ON l.ItemCode = it.ItemCode;";
+            string sSQL = "SELECT InvoiceNum, InvoiceDate, TotalCharge FROM Invoices";
             return sSQL;
         }
 
@@ -79,13 +75,7 @@ namespace Group9FinalProject
         /// <returns>SQL string</returns>
         public String SelectInvoiceByNumber(int number)
         {
-            string sSQL = String.Format("SELECT i.InvoiceNum, l.LineItemNum, it.ItemDesc AS Expr1, it.Cost AS Expr2, i.InvoiceDate, i.TotalCharge "
-                            + "FROM(Invoices AS i "
-                            + "INNER JOIN LineItems AS l "
-                            + "ON i.InvoiceNum = l.InvoiceNum) "
-                            + "INNER JOIN ItemDesc AS it "
-                            + "ON l.ItemCode = it.ItemCode; "
-                            + "WHERE i.InvoiceNum = {0};", number);
+            string sSQL = String.Format("SELECT InvoiceNum, InvoiceDate, TotalCharge FROM Invoices WHERE InvoiceNum = {0};", number);
             return sSQL;
         }
 
@@ -119,5 +109,6 @@ namespace Group9FinalProject
             String sSQL = "SELECT DISTINCT TotalCharge FROM Invoices;";
             return sSQL;
         }
+#endregion
     }
 }

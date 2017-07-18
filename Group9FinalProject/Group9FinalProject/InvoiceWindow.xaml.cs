@@ -33,11 +33,6 @@ namespace Group9FinalProject
         clsInvoice currInvoice;
 
         /// <summary>
-        /// This is the object of SearchWindow
-        /// </summary>
-        SearchWindow SearchWindowPg;
-
-        /// <summary>
         /// This is the constructor of InvoiceWindow class
         /// </summary>
         public InvoiceWindow()
