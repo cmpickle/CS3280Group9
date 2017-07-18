@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Reflection;
+using System.Collections.ObjectModel;
 
 namespace Group9FinalProject
 {
@@ -21,7 +22,20 @@ namespace Group9FinalProject
     /// </summary>
     public partial class InvoiceWindow : Window
     {
+        /// <summary>
+        /// This is the clsPopulateInvoicePg object that populate the data in the controls of InvoiceWindow
+        /// </summary>
         clsPopulateInvoicePg Populate;
+
+        /// <summary>
+        /// This keeps track of the current invoice that the InvoiceWindow should display
+        /// </summary>
+        clsInvoice currInvoice;
+
+        /// <summary>
+        /// This is the object of SearchWindow
+        /// </summary>
+        SearchWindow SearchWindowPg;
 
         /// <summary>
         /// This is the constructor of InvoiceWindow class
@@ -37,14 +51,21 @@ namespace Group9FinalProject
                 cboItems.IsEnabled = false;
                 cboItems.Items.Clear(); // Clear the items in the combo box
 
-                txtQuantity.IsEnabled = false;
                 btnAdd.IsEnabled = false;
                 btnDeleteItem.IsEnabled = false;
                 btnSave.IsEnabled = false;
 
-                // test populate cboItems
-                //cboItems.Items.Clear();
-                //cboItems.ItemsSource = Populate.populateChooseItem();
+                // populate the data grid with the latest invoice data when the user first open the program
+                string LatestInvNum = Populate.getLatestInvoiceNum();
+                currInvoice = Populate.PopulateInvoiceItem(LatestInvNum);
+               
+                dgAddedItems.ItemsSource = currInvoice.ItemsCollection;
+
+                // populate the invoice data into labels
+                lblInvoiceDate.Content = "Invoice Date:  " + String.Format("{0:MM/dd/yyyy}", currInvoice.InvoiceDate); ;
+                lblInvoiceNum.Content = "Invoice Number:  " + currInvoice.InvoiceNum;
+                txboInvoiceTotal.Text = " Total:  $ " + string.Format("{0:#.00}", currInvoice.TotalCharge);
+
             }
             catch (Exception ex)
             {
@@ -54,6 +75,60 @@ namespace Group9FinalProject
             }
         }
 
+        /// <summary>
+        /// This is triggered when the user hits the menu item Search For Invoice
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void miSearchInovice_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // has to discuss how to pass the Invoice object back to the main window to be displayed
+                SearchWindowPg = new SearchWindow();
+                this.Hide();
+                SearchWindowPg.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                //This is the top level method so we want to handle the exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// This function is triggered when the Edit Invoice button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnEditInvoice_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // enable the controls that allow user to edit the invoice
+                btnSave.IsEnabled = true;
+                btnDeleteItem.IsEnabled = true;
+                btnAdd.IsEnabled = true;
+                cboItems.IsEnabled = true;
+
+                // disable some controls that aren't accessible until the Save Invoice button is clicked
+                btnAddInvoice.IsEnabled = false;
+                btnEditInvoice.IsEnabled = false;
+
+                // reload the combo box that contains all the items in inventory
+                cboItems.Items.Clear();
+                cboItems.ItemsSource = Populate.populateChooseItem();
+
+                // to be continued
+            }
+            catch (Exception ex)
+            {
+                //This is the top level method so we want to handle the exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
 
         /// <summary>
         /// Handle the error.
@@ -73,7 +148,6 @@ namespace Group9FinalProject
                                              "HandleError Exception: " + ex.Message);
             }
         }
-
     }
     
 }
