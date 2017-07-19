@@ -65,7 +65,14 @@ namespace Group9FinalProject
         {
             try
             {
-                search.InvoiceSelected((clsInvoice)dgSearchPane.SelectedValue);
+                if(dgSearchPane.SelectedItem == null)
+                {
+                    MessageBox.Show("You haven't selected an invoice. Please select an invoice.", "No Invoice Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                    return;
+                }
+
+                search.InvoiceSelected((clsInvoice)dgSearchPane.SelectedItem);
 
                 this.Close();
             }
