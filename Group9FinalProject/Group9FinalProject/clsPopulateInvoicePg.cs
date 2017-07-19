@@ -111,7 +111,7 @@ namespace Group9FinalProject
         /// </summary>
         /// <param name="InvoiceNum"></param>
         /// <returns></returns>
-        public clsInvoice PopulateInvoiceItem(string InvoiceNum)
+        public clsInvoice PopulateInvoiceItem(int InvoiceNum)
         {
             try
             {
@@ -120,16 +120,15 @@ namespace Group9FinalProject
                 for (int i = 0; i < iNumInvoiceItems; i++)
                 {
                     clsInvoiceItem InvoiceItem = new clsInvoiceItem();
-                    InvoiceItem.LineItemNum = Convert.ToInt32(dsInvoiceItemList.Tables[0].Rows[i][6].ToString());
-                    InvoiceItem.ItemDesc = dsInvoiceItemList.Tables[0].Rows[i][4].ToString();
-                    InvoiceItem.ItemCost = Convert.ToDecimal(dsInvoiceItemList.Tables[0].Rows[i][5].ToString());
+                    InvoiceItem.LineItemNum = Convert.ToInt32(dsInvoiceItemList.Tables[0].Rows[i][5].ToString());
+                    InvoiceItem.ItemDesc = dsInvoiceItemList.Tables[0].Rows[i][3].ToString();
+                    InvoiceItem.ItemCost = Convert.ToDecimal(dsInvoiceItemList.Tables[0].Rows[i][4].ToString());
                     InvoiceItemCollection.Add(InvoiceItem);
                 }
                 clsInvoice currInvoice = new clsInvoice();
                 currInvoice.ItemsCollection = InvoiceItemCollection;
-                currInvoice.InvoiceNum = dsInvoiceItemList.Tables[0].Rows[1][0].ToString();
+                currInvoice.InvoiceNum = Convert.ToInt32(dsInvoiceItemList.Tables[0].Rows[0][0].ToString());
                 currInvoice.InvoiceDate = Convert.ToDateTime(dsInvoiceItemList.Tables[0].Rows[0][1].ToString());
-
                 currInvoice.TotalCharge = Convert.ToDecimal(dsInvoiceItemList.Tables[0].Rows[0][2].ToString());
                 return currInvoice;
             }
@@ -146,9 +145,34 @@ namespace Group9FinalProject
         /// This function returns the invoice number of the latest invoice
         /// </summary>
         /// <returns></returns>
-        public string getLatestInvoiceNum()
+        public int getLatestInvoiceNum()
         {
-            return db.ExecuteScalarSQL(SQLQueries.SelectTheLatestInvNum());
+            return Convert.ToInt32(db.ExecuteScalarSQL(SQLQueries.SelectTheLatestInvNum()));
+        }
+
+        public int getLastLineItemNum(int invoiceNum)
+        {
+            return Convert.ToInt32(db.ExecuteScalarSQL(SQLQueries.SelectTheLastLineItemNum(invoiceNum)));
+        }
+
+        public void addAnInvoiceItem(clsInvoice invoice)
+        {
+            // create a new data row from the dataset
+            DataRow dr = dsInvoiceItemList.Tables[0].NewRow();
+            dr[0] = invoice.InvoiceNum;
+            dr[1] = invoice.InvoiceDate;
+            dr[2] = invoice.TotalCharge;
+            int index = invoice.ItemsCollection.Count - 1;
+            dr[3] = invoice.ItemsCollection[index].ItemDesc;
+            dr[4] = invoice.ItemsCollection[index].ItemCost;
+            dr[5] = invoice.ItemsCollection[index].LineItemNum;
+
+            // add the data row to the dsInvoiceItemList data set
+            dsInvoiceItemList.Tables[0].Rows.Add(dr);
+
+            // accept the changes to the dataset
+            dsInvoiceItemList.AcceptChanges();
+
         }
 
     }

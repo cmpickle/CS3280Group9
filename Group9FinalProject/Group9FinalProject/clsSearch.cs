@@ -76,7 +76,7 @@ namespace Group9FinalProject
                 for (int i = 0; i < iRet; ++i)
                 {
                     clsInvoice invoice = new clsInvoice();
-                    invoice.InvoiceNum = ds.Tables[0].Rows[i][0].ToString();
+                    invoice.InvoiceNum = Convert.ToInt32(ds.Tables[0].Rows[i][0].ToString());
                     invoice.InvoiceDate = Convert.ToDateTime(ds.Tables[0].Rows[i][1].ToString()).Date;
                     invoice.TotalCharge = Convert.ToDecimal(ds.Tables[0].Rows[i][2].ToString());
                     result.Add(invoice);
