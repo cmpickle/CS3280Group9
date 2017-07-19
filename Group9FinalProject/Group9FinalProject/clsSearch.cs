@@ -23,6 +23,12 @@ namespace Group9FinalProject
         /// Holds all of the SQL statements
         /// </summary>
         clsSQL sql = new clsSQL();
+
+        /// <summary>
+        /// This is the interface for interacting with the invoice window
+        /// This interface will be used to pass the selected Invoice's number back to the invoice window
+        /// </summary>
+        InvoiceInterface invoiceInterface;
         #endregion
 
         #region constructor
@@ -32,9 +38,29 @@ namespace Group9FinalProject
 
             this.sql = new clsSQL();
         }
-#endregion
+        #endregion
 
         #region public methods
+        /// <summary>
+        /// Sets the instance of the InvoiceInterface for the class
+        /// </summary>
+        /// <param name="invoiceInterface"></param>
+        public void SetView(InvoiceInterface invoiceInterface)
+        {
+            this.invoiceInterface = invoiceInterface;
+        }
+
+        /// <summary>
+        /// Passes the invoice number to the InvoiceWindow 
+        /// It will be set as the active invoice
+        /// The InvoiceWindow will be refreshed with the active invoice info
+        /// </summary>
+        /// <param name="invoice"></param>
+        public void InvoiceSelected(clsInvoice invoice)
+        {
+            invoiceInterface.SetInvoice(invoice.InvoiceNum);
+        }
+
         /// <summary>
         /// Returns a list of all of the invoices in the database
         /// </summary>

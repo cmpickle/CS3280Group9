@@ -20,7 +20,7 @@ namespace Group9FinalProject
     /// <summary>
     /// Interaction logic for InvoiceWindow.xaml
     /// </summary>
-    public partial class InvoiceWindow : Window
+    public partial class InvoiceWindow : Window, InvoiceInterface
     {
         /// <summary>
         /// This is the clsPopulateInvoicePg object that populate the data in the controls of InvoiceWindow
@@ -74,6 +74,7 @@ namespace Group9FinalProject
             {
                 // has to discuss how to pass the Invoice object back to the main window to be displayed
                 SearchWindow searchWindow = new SearchWindow();
+                searchWindow.SetView(this);
                 searchWindow.ShowDialog();
             }
             catch (Exception ex)
@@ -203,6 +204,15 @@ namespace Group9FinalProject
                 System.IO.File.AppendAllText("C:\\Error.txt", Environment.NewLine +
                                              "HandleError Exception: " + ex.Message);
             }
+        }
+
+        /// <summary>
+        /// The invoice number that is passed in from the search page
+        /// </summary>
+        /// <param name="invoiceNum">The invoice number</param>
+        public void SetInvoice(int invoiceNum)
+        {
+            throw new NotImplementedException();
         }
     }
     
