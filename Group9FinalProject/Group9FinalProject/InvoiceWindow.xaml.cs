@@ -74,6 +74,7 @@ namespace Group9FinalProject
             {
                 // has to discuss how to pass the Invoice object back to the main window to be displayed
                 SearchWindow searchWindow = new SearchWindow();
+                searchWindow.SetView(this);
                 searchWindow.ShowDialog();
             }
             catch (Exception ex)
@@ -205,7 +206,11 @@ namespace Group9FinalProject
             }
         }
 
-        public void SetInvoice(string invoiceNum)
+        /// <summary>
+        /// The invoice number that is passed in from the search page
+        /// </summary>
+        /// <param name="invoiceNum">The invoice number</param>
+        public void SetInvoice(int invoiceNum)
         {
             throw new NotImplementedException();
         }

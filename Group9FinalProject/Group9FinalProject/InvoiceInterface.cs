@@ -19,6 +19,6 @@ namespace Group9FinalProject
         /// It will tell the page which invoice to set as well as issue a refresh of the page data.
         /// </summary>
         /// <param name="invoiceNum">The selected invoice's number</param>
-        void SetInvoice(String invoiceNum);
+        void SetInvoice(int invoiceNum);
     }
 }

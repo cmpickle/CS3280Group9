@@ -65,7 +65,7 @@ namespace Group9FinalProject
         {
             try
             {
-                search.InvoiceSelected((clsInvoice)sender);
+                search.InvoiceSelected((clsInvoice)dgSearchPane.SelectedValue);
 
                 this.Close();
             }
