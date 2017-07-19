@@ -15,7 +15,7 @@ namespace Group9FinalProject
         /// <summary>
         /// This is the invoice number for the invoice
         /// </summary>
-        private string sInvoiceNum;
+        private int iInvoiceNum;
 
         /// <summary>
         /// This is the invoice date for the invoice
@@ -35,10 +35,10 @@ namespace Group9FinalProject
         /// <summary>
         /// This is the getter and setter function for attribute sInvoiceNum
         /// </summary>
-        public string InvoiceNum
+        public int InvoiceNum
         {
-            get { return sInvoiceNum; }
-            set { sInvoiceNum = value; }
+            get { return iInvoiceNum; }
+            set { iInvoiceNum = value; }
         }
 
         /// <summary>
