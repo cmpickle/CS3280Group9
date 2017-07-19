@@ -65,6 +65,8 @@ namespace Group9FinalProject
         {
             try
             {
+                search.InvoiceSelected((clsInvoice)sender);
+
                 this.Close();
             }
             catch (Exception ex)
@@ -95,7 +97,18 @@ namespace Group9FinalProject
         }
         #endregion
 
-#region error handling
+        #region public methods
+        /// <summary>
+        /// Sets the instance of the InvoiceInterface for the search class
+        /// </summary>
+        /// <param name="invoiceInterface"></param>
+        public void SetView(InvoiceInterface invoiceInterface)
+        {
+            search.SetView(invoiceInterface);
+        }
+#endregion
+
+        #region error handling
         /// <summary>
         /// Handle the error.
         /// </summary>

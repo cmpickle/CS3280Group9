@@ -20,7 +20,7 @@ namespace Group9FinalProject
     /// <summary>
     /// Interaction logic for InvoiceWindow.xaml
     /// </summary>
-    public partial class InvoiceWindow : Window
+    public partial class InvoiceWindow : Window, InvoiceInterface
     {
         /// <summary>
         /// This is the clsPopulateInvoicePg object that populate the data in the controls of InvoiceWindow
@@ -142,6 +142,11 @@ namespace Group9FinalProject
                 System.IO.File.AppendAllText("C:\\Error.txt", Environment.NewLine +
                                              "HandleError Exception: " + ex.Message);
             }
+        }
+
+        public void SetInvoice(string invoiceNum)
+        {
+            throw new NotImplementedException();
         }
     }
     
