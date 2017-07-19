@@ -51,16 +51,8 @@ namespace Group9FinalProject
                 btnSave.IsEnabled = false;
 
                 // populate the data grid with the latest invoice data when the user first open the program
-                string LatestInvNum = Populate.getLatestInvoiceNum();
-                currInvoice = Populate.PopulateInvoiceItem(LatestInvNum);
-               
-                dgAddedItems.ItemsSource = currInvoice.ItemsCollection;
-
-                // populate the invoice data into labels
-                lblInvoiceDate.Content = "Invoice Date:  " + String.Format("{0:MM/dd/yyyy}", currInvoice.InvoiceDate); ;
-                lblInvoiceNum.Content = "Invoice Number:  " + currInvoice.InvoiceNum;
-                txboInvoiceTotal.Text = " Total:  $ " + string.Format("{0:#.00}", currInvoice.TotalCharge);
-
+                int LatestInvNum = Populate.getLatestInvoiceNum();
+                displayInvoice(LatestInvNum);
             }
             catch (Exception ex)
             {
@@ -101,21 +93,25 @@ namespace Group9FinalProject
         {
             try
             {
-                // enable the controls that allow user to edit the invoice
-                btnSave.IsEnabled = true;
-                btnDeleteItem.IsEnabled = true;
-                btnAdd.IsEnabled = true;
-                cboItems.IsEnabled = true;
+                // if there is a current invoice in the system
+                if (currInvoice != null)
+                {
+                    // enable the controls that allow user to edit the invoice
+                    btnSave.IsEnabled = true;
+                    btnDeleteItem.IsEnabled = true;
+                    btnAdd.IsEnabled = true;
+                    cboItems.IsEnabled = true;
 
-                // disable some controls that aren't accessible until the Save Invoice button is clicked
-                btnAddInvoice.IsEnabled = false;
-                btnEditInvoice.IsEnabled = false;
+                    // disable some controls that aren't accessible until the Save Invoice button is clicked
+                    btnAddInvoice.IsEnabled = false;
+                    btnEditInvoice.IsEnabled = false;
 
-                // reload the combo box that contains all the items in inventory
-                cboItems.Items.Clear();
-                cboItems.ItemsSource = Populate.populateChooseItem();
+                    // reload the combo box that contains all the items in inventory
+                    cboItems.Items.Clear();
+                    cboItems.ItemsSource = Populate.populateChooseItem();
 
-                // to be continued
+                    // to be continued
+                }
             }
             catch (Exception ex)
             {
@@ -123,6 +119,71 @@ namespace Group9FinalProject
                 HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
+        }
+
+        /// <summary>
+        /// This function is triggered when the add button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // first check if there is an item is selected in the Choose Item combo box
+                if (cboItems.SelectedItem != null)
+                {
+                    clsItem select = (clsItem)cboItems.SelectedItem;
+                    clsInvoiceItem InvoiceItem = new clsInvoiceItem();
+                    //InvoiceItem.LineItemNum = Populate.getLastLineItemNum(currInvoice.InvoiceNum) + 1;
+                    int index = currInvoice.ItemsCollection.Count;
+                    InvoiceItem.LineItemNum = currInvoice.ItemsCollection[index - 1].LineItemNum + 1;
+                    InvoiceItem.ItemDesc = select.ItemDesc;
+                    InvoiceItem.ItemCost = select.Cost;
+
+                    // add the invoice item to the current invoice's invoice items collection
+                    currInvoice.ItemsCollection.Add(InvoiceItem);
+
+                    // add the added invoice item to the dataset
+                    Populate.addAnInvoiceItem(currInvoice);
+
+                    // display the updated total charge
+                    currInvoice.TotalCharge = select.Cost + currInvoice.TotalCharge;
+                    txboInvoiceTotal.Text = " Total:  $ " + string.Format("{0:#.00}", currInvoice.TotalCharge);
+                }
+            }
+            catch (Exception ex)
+            {
+                //This is the top level method so we want to handle the exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// This function displays a particular invoice based on the invoice number parameter
+        /// </summary>
+        /// <param name="invoiceNum"></param>
+        private void displayInvoice(int invoiceNum)
+        {
+            try
+            {
+                currInvoice = Populate.PopulateInvoiceItem(invoiceNum);
+
+                dgAddedItems.ItemsSource = currInvoice.ItemsCollection;
+
+                // populate the invoice data into labels
+                lblInvoiceDate.Content = "Invoice Date:  " + String.Format("{0:MM/dd/yyyy}", currInvoice.InvoiceDate); ;
+                lblInvoiceNum.Content = "Invoice Number:  " + currInvoice.InvoiceNum.ToString();
+                txboInvoiceTotal.Text = " Total:  $ " + string.Format("{0:#.00}", currInvoice.TotalCharge);
+            }
+            catch (Exception ex)
+            {
+                //This is the top level method so we want to handle the exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+
         }
 
         /// <summary>

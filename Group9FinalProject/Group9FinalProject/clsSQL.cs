@@ -16,13 +16,13 @@ namespace Group9FinalProject
         /// </summary>
         /// <param name="sInvoiceID">The InvoiceID for the invoice to retrieve all data.</param>
         /// <returns>All data for the given invoice.</returns>
-        public string SelectInvoiceData(string InvoiceNum)
+        public string SelectInvoiceData(int InvoiceNum)
         {
-            string sSQL = "SELECT Invoices.InvoiceNum, InvoiceDate, TotalCharge, ItemDesc.ItemCode, ItemDesc, Cost, LineItemNum "
+            string sSQL = "SELECT Invoices.InvoiceNum, InvoiceDate, TotalCharge, ItemDesc, Cost, LineItemNum "
                 + "FROM Invoices, ItemDesc, LineItems "
                 + "WHERE Invoices.InvoiceNum = LineItems.InvoiceNum "
                 + "AND ItemDesc.ItemCode = LineItems.ItemCode " 
-                + "AND Invoices.InvoiceNum = " + InvoiceNum;
+                + "AND Invoices.InvoiceNum = " + InvoiceNum.ToString();
             return sSQL;
         }
 
@@ -54,6 +54,17 @@ namespace Group9FinalProject
         public string SelectTheLatestInvNum()
         {
             string sSQL = "SELECT MAX(InvoiceNum) FROM Invoices";
+            return sSQL;
+        }
+
+        /// <summary>
+        /// This SQL gets the last line item number in a particular invoice
+        /// </summary>
+        /// <param name="invoiceNum"></param>
+        /// <returns></returns>
+        public string SelectTheLastLineItemNum(int invoiceNum)
+        {
+            string sSQL = "SELECT MAX(LineItemNum) FROM LineItems WHERE InvoiceNum = " + invoiceNum.ToString();
             return sSQL;
         }
 

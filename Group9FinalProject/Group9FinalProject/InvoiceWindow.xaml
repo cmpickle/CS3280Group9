@@ -27,7 +27,7 @@
         <Button x:Name="btnDeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="10,401,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FFD9D0FF"/>
         <Label x:Name="lblInvoiceNum" Content="Invoice Number: TBD" VerticalAlignment="Top" Margin="10,31,0,0" HorizontalAlignment="Left" Width="285"/>
         <Label x:Name="lblInvoiceDate" Content="Invoice Date: " Margin="300,31,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="223"/>
-        <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="220,86,0,0" VerticalAlignment="Top" Width="75" Height="26" Background="#FFFDFAC9"/>
+        <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="220,86,0,0" VerticalAlignment="Top" Width="75" Height="26" Background="#FFFDFAC9" Click="btnAdd_Click"/>
         <Button x:Name="btnSave" Content="Save Changes" HorizontalAlignment="Left" Margin="672,401,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696"/>
         <Button x:Name="btnEditInvoice" Content="Edit Invoice" HorizontalAlignment="Left" Margin="541,401,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Click="btnEditInvoice_Click"/>
         <Button x:Name="btnAddInvoice" Content="Add Invoice" HorizontalAlignment="Left" Margin="405,401,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696"/>
