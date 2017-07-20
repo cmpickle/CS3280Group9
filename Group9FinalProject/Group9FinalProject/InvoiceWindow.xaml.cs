@@ -214,6 +214,18 @@ namespace Group9FinalProject
         {
             throw new NotImplementedException();
         }
+
+        private void miUpdateInventory_Click(object sender, RoutedEventArgs e)
+        {
+            InventoryWindow inventoryWindow = new InventoryWindow();
+            inventoryWindow.ShowDialog();
+        }
+
+        private void miUpdateInventory_Click_1(object sender, RoutedEventArgs e)
+        {
+            InventoryWindow iW = new Group9FinalProject.InventoryWindow();
+            iW.ShowDialog();
+        }
     }
     
 }

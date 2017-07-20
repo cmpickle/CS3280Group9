@@ -8,7 +8,7 @@
         Title="Invoices" Height="600" Width="800" Background="White" WindowStartupLocation="CenterScreen">
     <Grid Background="WhiteSmoke">
         <Menu x:Name="menu" Height="26" VerticalAlignment="Top" RenderTransformOrigin="0.505,-1.269" Background="#FFFBFAEA" BorderBrush="White">
-            <MenuItem x:Name="miUpdateInventory" Header="_Update Inventory" BorderBrush="Gainsboro"/>
+            <MenuItem x:Name="miUpdateInventory" Header="_Update Inventory" BorderBrush="Gainsboro" Click="miUpdateInventory_Click_1"/>
             <MenuItem x:Name="miSearchInovice" Header="_Search For Invoice" BorderBrush="Gainsboro" Height="26" Click="miSearchInovice_Click"/>
         </Menu>
         <ComboBox x:Name="cboItems" Margin="10,86,0,0" VerticalAlignment="Top" Height="26" BorderBrush="#FFFDFDFD" Background="White" HorizontalAlignment="Left" Width="178" IsEditable="True">

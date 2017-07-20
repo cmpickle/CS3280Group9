@@ -24,12 +24,7 @@ namespace Group9FinalProject
         /// <summary>
         /// Connects to the clsSQL class
         /// </summary>
-        clsSQL SQLQueries;
-
-        /// <summary>
-        /// Currently does nothing
-        /// </summary>
-        int iItemCount;
+        clsSQL SQLQueries;        
         
         /// <summary>
         /// This class populates the dataGrid in the InventoryWindow,
@@ -109,27 +104,6 @@ namespace Group9FinalProject
 
             return toRet;
         }
-
-        /// <summary>
-        /// Returns ItemCount number.
-        /// </summary>
-        public int ItemCount
-        {
-            get
-            {
-                return iItemCount;
-            }
-        }
-        
-        /// <summary>
-        /// Returns inventory number
-        /// </summary>
-        /// <returns></returns>
-        public string getLatestInventoryNum()
-        {
-            return db.ExecuteScalarSQL(SQLQueries.SelectTheLatestInvNum());
-        }
-
         
     }
 }
