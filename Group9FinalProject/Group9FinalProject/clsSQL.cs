@@ -120,6 +120,48 @@ namespace Group9FinalProject
             String sSQL = "SELECT DISTINCT TotalCharge FROM Invoices;";
             return sSQL;
         }
-#endregion
+        #endregion
+
+        #region Inventory Selection Statements
+        /// <summary>
+        /// Select all columns in the ItemDesc table
+        /// </summary>
+        /// <returns></returns>
+        public String SelectAllInventory()
+        {
+            string sSQL = "SELECT ItemCode, ItemDesc, Cost FROM ItemDesc";
+            return sSQL;
+        }
+
+        /// <summary>
+        /// Select all items for ItemCode
+        /// </summary>
+        /// <returns></returns>
+        public String SelectAllInventoryItemCode()
+        {
+            string sSQL = "SELECT ItemCode FROM ItemDesc ORDER BY ItemCode ASC";
+            return sSQL;
+        }
+
+        /// <summary>
+        /// Select all items in the ItemDesc column
+        /// </summary>
+        /// <returns></returns>
+        public String SelectAllInventoryItemDesc()
+        {
+            string sSQL = "SELECT ItemDesc FROM ItemDesc";
+            return sSQL;
+        }
+
+        /// <summary>
+        /// Select all items in the cost column
+        /// </summary>
+        /// <returns></returns>
+        public String SelectAllInventoryCost()
+        {
+            string sSQL = "SELECT Cost FROM ItemDesc";
+            return sSQL;
+        }
+        #endregion
     }
 }
