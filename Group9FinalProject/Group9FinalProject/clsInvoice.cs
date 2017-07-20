@@ -50,6 +50,14 @@ namespace Group9FinalProject
             set { dtInvoiceDate = value; }
         }
 
+        public String InvoiceDateString
+        {
+            get
+            {
+                return dtInvoiceDate.ToString("d");
+            }
+        }
+
         /// <summary>
         /// This is the getter and setter function for attribute dTotalCharge
         /// </summary>

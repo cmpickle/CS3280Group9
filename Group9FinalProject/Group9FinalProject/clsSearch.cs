@@ -77,7 +77,7 @@ namespace Group9FinalProject
                 {
                     clsInvoice invoice = new clsInvoice();
                     invoice.InvoiceNum = Convert.ToInt32(ds.Tables[0].Rows[i][0].ToString());
-                    invoice.InvoiceDate = Convert.ToDateTime(ds.Tables[0].Rows[i][1].ToString()).Date;
+                    invoice.InvoiceDate = Convert.ToDateTime(ds.Tables[0].Rows[i][1].ToString());
                     invoice.TotalCharge = Convert.ToDecimal(ds.Tables[0].Rows[i][2].ToString());
                     result.Add(invoice);
                 }
@@ -133,7 +133,7 @@ namespace Group9FinalProject
                 DataSet ds = dataAccess.ExecuteSQLStatement(sql.SelectAllInvoiceDate(), ref iRet);
                 for (int i = 0; i < iRet; ++i)
                 {
-                    result.Add(ds.Tables[0].Rows[i][0].ToString());
+                    result.Add(Convert.ToDateTime(ds.Tables[0].Rows[i][0].ToString()).ToString("d"));
                 }
             }
             catch (Exception ex)
@@ -172,6 +172,6 @@ namespace Group9FinalProject
 
             return result;
         }
-#endregion
+        #endregion
     }
 }

@@ -37,7 +37,7 @@ namespace Group9FinalProject
             try
             {
                 InitializeComponent();
-
+                
                 dgSearchPane.ItemsSource = search.GetInvoices();
 
                 search.GetInvoiceNums().ForEach(num => cboInvoiceNum.Items.Add(num));
@@ -134,6 +134,6 @@ namespace Group9FinalProject
                                              "HandleError Exception: " + ex.Message);
             }
         }
-#endregion
+        #endregion
     }
 }

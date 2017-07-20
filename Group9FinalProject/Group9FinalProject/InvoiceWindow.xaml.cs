@@ -188,6 +188,30 @@ namespace Group9FinalProject
         }
 
         /// <summary>
+        /// The invoice number that is passed in from the search page
+        /// </summary>
+        /// <param name="invoiceNum">The invoice number</param>
+        public void SetInvoice(int invoiceNum)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void miUpdateInventory_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                InventoryWindow inventoryWindow = new InventoryWindow();
+                inventoryWindow.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                //This is the top level method so we want to handle the exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Handle the error.
         /// </summary>
         /// <param name="sClass">The class in which the error occurred in.</param>
@@ -204,27 +228,6 @@ namespace Group9FinalProject
                 System.IO.File.AppendAllText("C:\\Error.txt", Environment.NewLine +
                                              "HandleError Exception: " + ex.Message);
             }
-        }
-
-        /// <summary>
-        /// The invoice number that is passed in from the search page
-        /// </summary>
-        /// <param name="invoiceNum">The invoice number</param>
-        public void SetInvoice(int invoiceNum)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void miUpdateInventory_Click(object sender, RoutedEventArgs e)
-        {
-            InventoryWindow inventoryWindow = new InventoryWindow();
-            inventoryWindow.ShowDialog();
-        }
-
-        private void miUpdateInventory_Click_1(object sender, RoutedEventArgs e)
-        {
-            InventoryWindow iW = new Group9FinalProject.InventoryWindow();
-            iW.ShowDialog();
         }
     }
     
