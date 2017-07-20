@@ -1,0 +1,68 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Group9FinalProject"
+        xmlns:InvoiceDataSetTableAdapters="clr-namespace:Group9FinalProject.InvoiceDataSetTableAdapters" x:Class="Group9FinalProject.InventoryWindow"
+        mc:Ignorable="d"
+        Title="Update Inventory" Height="600" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:InvoiceDataSet x:Key="invoiceDataSet"/>
+        <CollectionViewSource x:Key="itemDescViewSource" Source="{Binding ItemDesc, Source={StaticResource invoiceDataSet}}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource itemDescViewSource}" Margin="0,0,3.6,0.4">
+        <Button x:Name="btnDeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="670,503,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FFD9D0FF" Click="btnDeleteItem_Click"/>
+        <Button x:Name="btnSave" Content="Save Changes" HorizontalAlignment="Left" Margin="405,503,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Click="btnSave_Click"/>
+        <Button x:Name="btnAddInventory" Content="Add Item" HorizontalAlignment="Left" Margin="16,503,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Click="btnAddInvoice_Click"/>
+        <Label Content="Item Code:" Margin="16,41,699.6,494.4" />
+        <ComboBox x:Name="cboInventoryCode" Margin="99,41,614,495" IsSynchronizedWithCurrentItem="False">
+            <ComboBox.DataContext>
+                <InvoiceDataSetTableAdapters:ItemDescTableAdapter/>
+            </ComboBox.DataContext>
+        </ComboBox>
+        <DataGrid x:Name="dgInventory" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="16,97,10,153" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="itemDescDataGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="itemCodeColumn" Binding="{Binding ItemCode}" Header="Item Code" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="itemDescColumn" Binding="{Binding ItemDesc}" Header="Item Desc" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="costColumn" Binding="{Binding Cost}" Header="Cost" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock x:Name="tbItemCodeLabel" HorizontalAlignment="Left" Margin="18,431,0,0" TextWrapping="Wrap" Text="Item Code:" VerticalAlignment="Top" Height="21" Width="78"/>
+        <TextBlock x:Name="tbItemDescLabel" HorizontalAlignment="Left" Margin="175,431,0,0" TextWrapping="Wrap" Text="Item Description:" VerticalAlignment="Top" Width="109"/>
+        <TextBlock x:Name="tbItemCostLabel" HorizontalAlignment="Left" Margin="351,431,0,0" TextWrapping="Wrap" Text="Item Cost:" VerticalAlignment="Top" Width="109"/>
+        <Grid x:Name="grid1" HorizontalAlignment="Left" Margin="234,46,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+        </Grid>
+        <Grid x:Name="grid2" HorizontalAlignment="Left" Margin="197,459,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+        </Grid>
+        <Grid x:Name="grid3" HorizontalAlignment="Left" Margin="501,458,0,0" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+        </Grid>
+        <TextBox x:Name="tbItemCodeInp" HorizontalAlignment="Left" Height="23" Margin="18,452,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbItemDescInp" HorizontalAlignment="Left" Height="23" Margin="175,454,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142"/>
+        <TextBox x:Name="tbItemCostInp" HorizontalAlignment="Left" Height="23" Margin="351,454,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnEditItem" Content="Edit Item" HorizontalAlignment="Left" Margin="147,503,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Click="btnEditInvoice_Click"/>
+        <Button x:Name="btnClearText" Content="Clear" HorizontalAlignment="Left" Margin="276,503,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Click="btnClear_Click"/>
+
+    </Grid>
+</Window>
