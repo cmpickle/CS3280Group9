@@ -21,14 +21,14 @@ namespace Group9FinalProject
     /// </summary>
     public partial class SearchWindow : Window
     {
-#region class fields
+        #region class fields
         /// <summary>
         /// This object holds all of the searching business logic and search methods
         /// </summary>
         clsSearch search = new clsSearch();
         #endregion
 
-#region constructor
+        #region constructor
         /// <summary>
         /// The default constructor
         /// </summary>
@@ -55,7 +55,7 @@ namespace Group9FinalProject
         }
         #endregion
 
-#region event handlers
+        #region event handlers
         /// <summary>
         /// The event handler for the Select button
         /// </summary>
