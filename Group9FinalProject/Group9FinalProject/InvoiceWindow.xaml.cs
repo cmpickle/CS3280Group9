@@ -22,6 +22,7 @@ namespace Group9FinalProject
     /// </summary>
     public partial class InvoiceWindow : Window, InvoiceInterface
     {
+        #region Attributes
         /// <summary>
         /// This is the clsPopulateInvoicePg object that populate the data in the controls of InvoiceWindow
         /// </summary>
@@ -32,6 +33,9 @@ namespace Group9FinalProject
         /// </summary>
         clsInvoice currInvoice;
 
+        #endregion
+
+        #region Constructor
         /// <summary>
         /// This is the constructor of InvoiceWindow class
         /// </summary>
@@ -42,13 +46,8 @@ namespace Group9FinalProject
                 InitializeComponent();
                 Populate = new clsPopulateInvoicePg();
 
-                // disabled most of the control when the user first start the program
-                cboItems.IsEnabled = false;
                 cboItems.Items.Clear(); // Clear the items in the combo box
-
-                btnAdd.IsEnabled = false;
-                btnDeleteItem.IsEnabled = false;
-                btnSave.IsEnabled = false;
+                SetReadOnlyMode();
 
                 // populate the data grid with the latest invoice data when the user first open the program
                 int LatestInvNum = Populate.getLatestInvoiceNum();
@@ -61,7 +60,9 @@ namespace Group9FinalProject
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
+        #endregion
 
+        #region Event Handler
         /// <summary>
         /// The event handler for the Search Menu Item.
         /// This is triggered when the user hits the menu item Search For Invoice
@@ -97,21 +98,10 @@ namespace Group9FinalProject
                 // if there is a current invoice in the system
                 if (currInvoice != null)
                 {
-                    // enable the controls that allow user to edit the invoice
-                    btnSave.IsEnabled = true;
-                    btnDeleteItem.IsEnabled = true;
-                    btnAdd.IsEnabled = true;
-                    cboItems.IsEnabled = true;
-
-                    // disable some controls that aren't accessible until the Save Invoice button is clicked
-                    btnAddInvoice.IsEnabled = false;
-                    btnEditInvoice.IsEnabled = false;
-
+                    setEditableMode();
                     // reload the combo box that contains all the items in inventory
                     cboItems.Items.Clear();
                     cboItems.ItemsSource = Populate.populateChooseItem();
-
-                    // to be continued
                 }
             }
             catch (Exception ex)
@@ -146,11 +136,11 @@ namespace Group9FinalProject
                     currInvoice.ItemsCollection.Add(InvoiceItem);
 
                     // add the added invoice item to the dataset
-                    Populate.addAnInvoiceItem(currInvoice);
+                    //Populate.addAnInvoiceItem(currInvoice);
 
                     // display the updated total charge
                     currInvoice.TotalCharge = select.Cost + currInvoice.TotalCharge;
-                    txboInvoiceTotal.Text = " Total:  $ " + string.Format("{0:#.00}", currInvoice.TotalCharge);
+                    txboInvoiceTotal.Text = string.Format("{0:#.00}", currInvoice.TotalCharge);
                 }
             }
             catch (Exception ex)
@@ -158,6 +148,101 @@ namespace Group9FinalProject
                 //This is the top level method so we want to handle the exception
                 HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// This function is triggered when the Delete Item button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDeleteItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (dgAddedItems.SelectedItem != null)
+                {
+                    int rowIndex = dgAddedItems.SelectedIndex;
+                    clsInvoiceItem temp = (clsInvoiceItem)dgAddedItems.SelectedItem;
+                    decimal cost = temp.ItemCost;
+                    currInvoice.ItemsCollection.RemoveAt(rowIndex);
+                    regenLineItemNum();
+                    refreshDg();
+
+                    // display the updated total charge
+                    currInvoice.TotalCharge = currInvoice.TotalCharge - cost;
+                    txboInvoiceTotal.Text = string.Format("{0:#.00}", currInvoice.TotalCharge);
+                }
+            }
+            catch (Exception ex)
+            {
+                //This is the top level method so we want to handle the exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// This function is triggered when the Cancel button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                currInvoice = Populate.PopulateInvoiceItem(currInvoice.InvoiceNum);
+                displayInvoice(currInvoice.InvoiceNum);
+                SetReadOnlyMode();
+            }
+            catch (Exception ex)
+            {
+                //This is the top level method so we want to handle the exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+        #endregion
+
+        #region Helper Functions
+        /// <summary>
+        /// This function regenerate the line item number for the item collection after deletion
+        /// </summary>
+        /// <param name="curr"></param>
+        private void regenLineItemNum()
+        {
+            try
+            {
+                int length = currInvoice.ItemsCollection.Count;
+                for (int i = 0; i < length; i++)
+                {
+                    if (currInvoice.ItemsCollection[i].LineItemNum != (i + 1))
+                        currInvoice.ItemsCollection[i].LineItemNum = i + 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// This function refresh the added item data grid
+        /// </summary>
+        private void refreshDg()
+        {
+            try
+            {
+                dgAddedItems.ItemsSource = null;
+                dgAddedItems.ItemsSource = currInvoice.ItemsCollection;
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
 
@@ -174,19 +259,76 @@ namespace Group9FinalProject
                 dgAddedItems.ItemsSource = currInvoice.ItemsCollection;
 
                 // populate the invoice data into labels
-                lblInvoiceDate.Content = "Invoice Date:  " + String.Format("{0:MM/dd/yyyy}", currInvoice.InvoiceDate); ;
+                dpInvoiceDate.Text = String.Format("{0:MM/dd/yyyy}", currInvoice.InvoiceDate);
                 lblInvoiceNum.Content = "Invoice Number:  " + currInvoice.InvoiceNum.ToString();
-                txboInvoiceTotal.Text = " Total:  $ " + string.Format("{0:#.00}", currInvoice.TotalCharge);
+                txboInvoiceTotal.Text = string.Format("{0:#.00}", currInvoice.TotalCharge);
             }
             catch (Exception ex)
             {
-                //This is the top level method so we want to handle the exception
-                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
 
         }
 
+        /// <summary>
+        /// This function sets controls on InvoiceWindow to read-only mode
+        /// </summary>
+        private void SetReadOnlyMode()
+        {
+            try
+            {
+                dpInvoiceDate.IsEnabled = false;
+                txboInvoiceTotal.IsEnabled = false;
+                cboItems.IsEnabled = false;
+                btnAdd.IsEnabled = false;
+                btnDeleteItem.IsEnabled = false;
+                btnSave.IsEnabled = false;
+                btnCancel.IsEnabled = false;
+
+                btnEditInvoice.IsEnabled = true;
+                btnAddInvoice.IsEnabled = true;
+                btnDeleteInvoice.IsEnabled = true;
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+
+        }
+
+        private void setEditableMode()
+        {
+            try
+            {
+                // enable the controls that allow user to edit the invoice
+                btnSave.IsEnabled = true;
+                btnDeleteItem.IsEnabled = true;
+                btnAdd.IsEnabled = true;
+                cboItems.IsEnabled = true;
+                btnCancel.IsEnabled = true;
+                dpInvoiceDate.IsEnabled = true;
+                txboInvoiceTotal.IsEnabled = true;
+
+                // disable some controls that aren't accessible until the Save Invoice button is clicked
+                btnAddInvoice.IsEnabled = false;
+                btnEditInvoice.IsEnabled = false;
+                btnDeleteInvoice.IsEnabled = false;
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region Interface
         /// <summary>
         /// The invoice number that is passed in from the search page
         /// </summary>
@@ -196,6 +338,14 @@ namespace Group9FinalProject
             throw new NotImplementedException();
         }
 
+        #endregion
+
+        #region Navigate To Other Pages
+        /// <summary>
+        /// This function is triggered when the Update Inventory menu item is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void miUpdateInventory_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -229,6 +379,8 @@ namespace Group9FinalProject
                                              "HandleError Exception: " + ex.Message);
             }
         }
+
+        #endregion
     }
-    
+
 }

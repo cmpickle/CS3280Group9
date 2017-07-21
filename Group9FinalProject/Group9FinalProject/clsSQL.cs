@@ -11,6 +11,7 @@ namespace Group9FinalProject
     /// </summary>
     class clsSQL
     {
+        #region Invoice Window Related SQL Statements
         /// <summary>
         /// This SQL gets all data on an invoice for a given InvoiceID.
         /// </summary>
@@ -68,7 +69,58 @@ namespace Group9FinalProject
             return sSQL;
         }
 
-#region Invoice Selection statements
+        /// <summary>
+        /// This SQL inserts a new row into the Invoices table
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="totalCharge"></param>
+        /// <returns></returns>
+        public string InsertNewInvoice(DateTime date, decimal totalCharge)
+        {
+            string sSQL = "INSERT INTO Invoices (InvoiceDate, TotalCharge) Values (#" + date.ToString() + "#, " + totalCharge.ToString() +");";
+            return sSQL;
+        }
+
+        /// <summary>
+        /// This SQL inserts a new row into the LineItem table
+        /// </summary>
+        /// <param name="invoiceNum"></param>
+        /// <param name="lineItemNum"></param>
+        /// <param name="itemCode"></param>
+        /// <returns></returns>
+        public string InsertNewLineItem(int invoiceNum, int lineItemNum, string itemCode)
+        {
+            string sSQL = "INSERT INTO LineItems (InvoiceNum, LineItemNum, ItemCode) Values (" + invoiceNum.ToString() + ", " + lineItemNum.ToString() + ", '" + itemCode + "');";
+            return sSQL;
+        }
+
+        /// <summary>
+        /// This SQL update a particular invoice row in Invoices table
+        /// </summary>
+        /// <param name="invoiceNum"></param>
+        /// <param name="date"></param>
+        /// <param name="totalCharge"></param>
+        /// <returns></returns>
+        public string updateInvoice(int invoiceNum, DateTime date, decimal totalCharge)
+        {
+            string sSQL = "UPDATE Invoices SET InvoiceDate = #" + date.ToString() + "#, TotalCharge = " + totalCharge.ToString() + " WHERE InvoiceNum=" + invoiceNum.ToString() + ";";
+            return sSQL;
+        }
+
+        /// <summary>
+        /// This SQL delete a particular line item row in LineItems table
+        /// </summary>
+        /// <param name="invoiceNum"></param>
+        /// <param name="lineItemNum"></param>
+        /// <returns></returns>
+        public string deleteLineItem(int invoiceNum, int lineItemNum)
+        {
+            string sSQL = "DELETE FROM LineItems WHERE InvoiceNum = " + invoiceNum.ToString() + " AND LineItemNum = " + lineItemNum.ToString();
+            return sSQL;
+        }
+        #endregion
+
+        #region Invoice Selection statements
         /// <summary>
         /// This SQL statement gets all the information about every invoice
         /// </summary>
