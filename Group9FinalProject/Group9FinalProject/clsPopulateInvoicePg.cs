@@ -150,11 +150,20 @@ namespace Group9FinalProject
             return Convert.ToInt32(db.ExecuteScalarSQL(SQLQueries.SelectTheLatestInvNum()));
         }
 
+        /// <summary>
+        /// This function returns the largest line item number in an invoice
+        /// </summary>
+        /// <param name="invoiceNum"></param>
+        /// <returns></returns>
         public int getLastLineItemNum(int invoiceNum)
         {
             return Convert.ToInt32(db.ExecuteScalarSQL(SQLQueries.SelectTheLastLineItemNum(invoiceNum)));
         }
 
+        /// <summary>
+        /// This function adds an invoice item into the InvoiceItemList dataset
+        /// </summary>
+        /// <param name="invoice"></param>
         public void addAnInvoiceItem(clsInvoice invoice)
         {
             // create a new data row from the dataset
@@ -172,7 +181,6 @@ namespace Group9FinalProject
 
             // accept the changes to the dataset
             dsInvoiceItemList.AcceptChanges();
-
         }
 
     }
