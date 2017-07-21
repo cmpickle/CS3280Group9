@@ -181,7 +181,7 @@ namespace Group9FinalProject
         /// <returns></returns>
         public String SelectAllInventory()
         {
-            string sSQL = "SELECT ItemCode, ItemDesc, Cost FROM ItemDesc";
+            string sSQL = "SELECT ItemCode, ItemDesc, Cost FROM ItemDesc ORDER BY ItemCode ASC";
             return sSQL;
         }
 
@@ -191,17 +191,18 @@ namespace Group9FinalProject
         /// <returns></returns>
         public String SelectAllInventoryItemCode()
         {
-            string sSQL = "SELECT ItemCode FROM ItemDesc ORDER BY ItemCode ASC";
+            string sSQL = "SELECT DISTINCT ItemCode FROM ItemDesc ORDER BY ItemCode ASC";
             return sSQL;
         }
 
         /// <summary>
-        /// Select all items in the ItemDesc column
+        /// Select an item description depending on what the user types in
         /// </summary>
         /// <returns></returns>
-        public String SelectAllInventoryItemDesc()
+        public String SelectAllInventoryItemDesc(string userInp)
         {
-            string sSQL = "SELECT ItemDesc FROM ItemDesc";
+            string sSQL = String.Format("SELECT ItemDesc FROM ItemDesc "
+                        + "WHERE ItemDesc LIKE \"{0}\" ORDER BY ItemCode", userInp);
             return sSQL;
         }
 
@@ -211,7 +212,42 @@ namespace Group9FinalProject
         /// <returns></returns>
         public String SelectAllInventoryCost()
         {
-            string sSQL = "SELECT Cost FROM ItemDesc";
+            string sSQL = "SELECT DISTINCT Cost FROM ItemDesc ORDER BY Cost ASC";
+            return sSQL;
+        }
+        #endregion
+
+        #region Inventory Button Statements
+        /// <summary>
+        /// Adds an item to the list. Allows adding a primary key value.
+        /// </summary>
+        /// <returns></returns>
+        public String AddInventoryItem(string iCode, string iDesc, decimal theCost)
+        {
+            string sSQL = String.Format("INSERT INTO ItemDesc (ItemCode, ItemDesc, Cost) "
+                + "VALUES (\"{0}\", \"{1}\", {2})", iCode, iDesc, theCost);
+            return sSQL;
+        }
+
+        /// <summary>
+        /// Saves changes to a row. Does not update primary key value.
+        /// </summary>
+        /// <returns></returns>
+        public String SaveInventoryChanges(string iCode, string iDesc, decimal theCost)
+        {
+            string sSQL = String.Format("UPDATE ItemDesc Set ItemDesc = {1}, Cost = {2}"
+                + "WHERE ItemCode = {0}", iCode, iDesc, theCost);
+            return sSQL;
+        }
+
+        /// <summary>
+        /// Deletes a row based on primary key value selection
+        /// </summary>
+        /// <returns></returns>
+        public String DeleteInventoryRow(string iCode)
+        {
+            string sSQL = String.Format("DELETE FROM ItemDesc"
+                + "WHERE ItemCode = {0}", iCode);
             return sSQL;
         }
         #endregion

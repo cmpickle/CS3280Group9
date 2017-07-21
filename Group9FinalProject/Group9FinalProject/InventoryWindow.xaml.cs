@@ -35,6 +35,7 @@ namespace Group9FinalProject
                 clsInventory = new clsPopulateInventoryPg();
                 dgInventory.ItemsSource = clsInventory.theInventory();
                 clsInventory.GetInventoryCode().ForEach(num => cboInventoryCode.Items.Add(num));
+                clsInventory.GetInventoryCost().ForEach(num => cboInventoryCost.Items.Add(num));
 
             }
             catch (Exception ex)
@@ -57,6 +58,7 @@ namespace Group9FinalProject
 
         /// <summary>
         /// Text in the text boxes will be added to a new row if this button is pressed
+        /// An error will be given if trying to save information to an already existing Item code (primary key)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -67,7 +69,8 @@ namespace Group9FinalProject
 
         /// <summary>
         /// When and item is selected and this button is pressed, it pulls the selected info into the 
-        /// text boxes and can be saved.
+        /// text boxes and can be saved. Items that can be saved are item's description and cost only
+        /// if an existing item code already exists. 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -127,5 +130,10 @@ namespace Group9FinalProject
             }
         }
         #endregion
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

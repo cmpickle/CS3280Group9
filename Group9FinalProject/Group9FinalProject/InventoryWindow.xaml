@@ -16,25 +16,31 @@
             <ColumnDefinition Width="151*"/>
             <ColumnDefinition Width="639*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnDeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="519.2,503,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FFD9D0FF" Click="btnDeleteItem_Click" Grid.Column="1"/>
-        <Button x:Name="btnSave" Content="Save Changes" HorizontalAlignment="Left" Margin="254.2,503,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Click="btnSave_Click" Grid.Column="1"/>
-        <Button x:Name="btnAddInventory" Content="Add Item" HorizontalAlignment="Left" Margin="16,503,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Click="btnAddInvoice_Click"/>
-        <Label Content="Item Code:" Margin="16,41,59.8,495" />
-        <ComboBox x:Name="cboInventoryCode" Margin="99,41,614,495" IsSynchronizedWithCurrentItem="False" Grid.ColumnSpan="2">
+        <GroupBox x:Name="groupBox1" Header="Search By" HorizontalAlignment="Left" Margin="14,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="82" Width="417" FontWeight="Bold">
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="312,6,0,0" TextWrapping="Wrap" Text="Item Cost:" VerticalAlignment="Top" FontWeight="Normal"/>
+        </GroupBox>
+
+        <GroupBox x:Name="groupBox" Header="Edit Item" HorizontalAlignment="Left" Margin="16,421,0,0" VerticalAlignment="Top" Height="79" Width="573" Grid.ColumnSpan="2" FontWeight="Bold"/>
+
+        <Button x:Name="btnDeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="214.8,510,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FFD9D0FF" Click="btnDeleteItem_Click" Grid.Column="1"/>
+        <Button x:Name="btnSave" Content="Save Changes" HorizontalAlignment="Left" Margin="98.8,510,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Click="btnSave_Click" Grid.Column="1"/>
+        <Button x:Name="btnAddInventory" Content="Add Item" HorizontalAlignment="Left" Margin="16,510,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Click="btnAddInvoice_Click"/>
+        <Label x:Name="tblItemCode" Content="Item Code:" Margin="25,25,51.2,512" />
+        <ComboBox x:Name="cboInventoryCode" Margin="28,55,46.2,482" IsSynchronizedWithCurrentItem="False">
             <ComboBox.DataContext>
                 <InvoiceDataSetTableAdapters:ItemDescTableAdapter/>
             </ComboBox.DataContext>
         </ComboBox>
         <DataGrid x:Name="dgInventory" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="16,97,10,153" RowDetailsVisibilityMode="VisibleWhenSelected" Grid.ColumnSpan="2">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="itemCodeColumn" Binding="{Binding InventoryLetter}" Header="Item Code" Width="SizeToHeader"/>
-                <DataGridTextColumn x:Name="itemDescColumn" Binding="{Binding ItemDesc}" Header="Item Desc" Width="SizeToHeader"/>
-                <DataGridTextColumn x:Name="costColumn" Binding="{Binding ItemCost}" Header="Cost" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="itemCodeColumn" Binding="{Binding InventoryLetter}" Header="Code" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="itemDescColumn" Binding="{Binding ItemDesc}" Header="Description" Width="200"/>
+                <DataGridTextColumn x:Name="costColumn" Binding="{Binding ItemCost}" Header="Cost" Width="70"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBlock x:Name="tbItemCodeLabel" HorizontalAlignment="Left" Margin="18,431,0,0" TextWrapping="Wrap" Text="Item Code:" VerticalAlignment="Top" Height="21" Width="78"/>
-        <TextBlock x:Name="tbItemDescLabel" HorizontalAlignment="Left" Margin="24.2,431,0,0" TextWrapping="Wrap" Text="Item Description:" VerticalAlignment="Top" Width="109" Grid.Column="1"/>
-        <TextBlock x:Name="tbItemCostLabel" HorizontalAlignment="Left" Margin="200.2,431,0,0" TextWrapping="Wrap" Text="Item Cost:" VerticalAlignment="Top" Width="109" Grid.Column="1"/>
+        <TextBlock x:Name="tbItemCodeLabel" HorizontalAlignment="Left" Margin="33,446,0,0" TextWrapping="Wrap" Text="Item Code:" VerticalAlignment="Top" Height="21" Width="78"/>
+        <TextBlock x:Name="tbItemDescLabel" HorizontalAlignment="Left" Margin="38.8,444,0,0" TextWrapping="Wrap" Text="Item Description:" VerticalAlignment="Top" Width="109" Grid.Column="1"/>
+        <TextBlock x:Name="tbItemCostLabel" HorizontalAlignment="Left" Margin="214.8,444,0,0" TextWrapping="Wrap" Text="Item Cost:" VerticalAlignment="Top" Width="109" Grid.Column="1"/>
         <Grid x:Name="grid1" HorizontalAlignment="Left" Margin="83.2,46,0,0" VerticalAlignment="Top" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -62,11 +68,15 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
         </Grid>
-        <TextBox x:Name="tbItemCodeInp" HorizontalAlignment="Left" Height="23" Margin="18,452,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbItemDescInp" HorizontalAlignment="Left" Height="23" Margin="24.2,454,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" Grid.Column="1"/>
-        <TextBox x:Name="tbItemCostInp" HorizontalAlignment="Left" Height="23" Margin="200.2,454,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-        <Button x:Name="btnEditItem" Content="Edit Item" HorizontalAlignment="Left" Margin="147,503,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Click="btnEditInvoice_Click" Grid.ColumnSpan="2"/>
-        <Button x:Name="btnClearText" Content="Clear" HorizontalAlignment="Left" Margin="125.2,503,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Click="btnClear_Click" Grid.Column="1"/>
+        <TextBox x:Name="tbItemCodeInp" HorizontalAlignment="Left" Height="23" Margin="33,467,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="tbItemDescInp" HorizontalAlignment="Left" Height="23" Margin="38.8,467,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" Grid.Column="1"/>
+        <TextBox x:Name="tbItemCostInp" HorizontalAlignment="Left" Height="23" Margin="214.8,467,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+        <Button x:Name="btnEditItem" Content="Edit Item" HorizontalAlignment="Left" Margin="133,510,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Click="btnEditInvoice_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnClearText" Content="Clear" HorizontalAlignment="Left" Margin="360.8,467,0,0" VerticalAlignment="Top" Width="64" Height="23" Background="#FFD9D0FF" Click="btnClear_Click" Grid.Column="1"/>
+        <Label x:Name="tblItemDesc" Content="Item Description:" Margin="141,25,486.4,512" Grid.ColumnSpan="2" />
+        <TextBox x:Name="tbItemDescInp1" HorizontalAlignment="Left" Height="24" Margin="145,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="514.8,509,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Grid.Column="1" Click="btnCancel_Click"/>
+        <ComboBox x:Name="cboInventoryCost" Grid.Column="1" HorizontalAlignment="Left" Margin="181.8,58,0,0" VerticalAlignment="Top" Width="83" Height="22"/>
 
     </Grid>
 </Window>

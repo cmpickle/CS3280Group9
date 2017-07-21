@@ -55,14 +55,5 @@ namespace Group9FinalProject
             get { return dItemCost; }
             set { dItemCost = value; }
         }
-
-        /// <summary>
-        /// This is the getter and setter function for attribute ocItemsCollection
-        /// </summary>
-        public ObservableCollection<clsInvoiceItem> ItemsCollection
-        {
-            get { return ocItemsCollection; }
-            set { ocItemsCollection = value; }
-        }
     }
 }

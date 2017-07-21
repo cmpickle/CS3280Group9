@@ -10,6 +10,10 @@ using System.Collections.ObjectModel;
 
 namespace Group9FinalProject
 {
+    /// <summary>
+    /// This class populates the dataGrid in the InventoryWindow,
+    /// as well as, populates the comboBoxes
+    /// </summary>
     class clsPopulateInventoryPg
     {   /// <summary>
         /// Connects to the clsDataAccess class
@@ -27,8 +31,7 @@ namespace Group9FinalProject
         clsSQL SQLQueries;        
         
         /// <summary>
-        /// This class populates the dataGrid in the InventoryWindow,
-        /// as well as, populates the comboBox
+        /// clsPopulateInventoryPg constructor
         /// </summary>
         public clsPopulateInventoryPg()
         {
@@ -79,7 +82,7 @@ namespace Group9FinalProject
         }
 
         /// <summary>
-        /// Returns the Inventory code to the combo box
+        /// Returns the Inventory code to the combo box for searching
         /// </summary>
         /// <returns></returns>
         public List<String> GetInventoryCode()
@@ -104,6 +107,33 @@ namespace Group9FinalProject
 
             return toRet;
         }
-        
+
+        /// <summary>
+        /// Returns the item cost to the combo box for searching by price
+        /// </summary>
+        /// <returns></returns>
+        public List<String> GetInventoryCost()
+        {
+            List<String> toRet = new List<String>();
+
+            try
+            {
+                int num = 0;
+                ds = db.ExecuteSQLStatement(SQLQueries.SelectAllInventoryCost(), ref num);
+                for (int i = 0; i < num; ++i)
+                {
+                    toRet.Add(ds.Tables[0].Rows[i][0].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+
+            return toRet;
+        }
+
     }
 }
