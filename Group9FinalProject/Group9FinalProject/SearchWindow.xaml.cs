@@ -21,14 +21,14 @@ namespace Group9FinalProject
     /// </summary>
     public partial class SearchWindow : Window
     {
-#region class fields
+        #region class fields
         /// <summary>
         /// This object holds all of the searching business logic and search methods
         /// </summary>
         clsSearch search = new clsSearch();
         #endregion
 
-#region constructor
+        #region constructor
         /// <summary>
         /// The default constructor
         /// </summary>
@@ -37,7 +37,7 @@ namespace Group9FinalProject
             try
             {
                 InitializeComponent();
-
+                
                 dgSearchPane.ItemsSource = search.GetInvoices();
 
                 search.GetInvoiceNums().ForEach(num => cboInvoiceNum.Items.Add(num));
@@ -55,7 +55,7 @@ namespace Group9FinalProject
         }
         #endregion
 
-#region event handlers
+        #region event handlers
         /// <summary>
         /// The event handler for the Select button
         /// </summary>
@@ -65,7 +65,14 @@ namespace Group9FinalProject
         {
             try
             {
-                search.InvoiceSelected((clsInvoice)dgSearchPane.SelectedValue);
+                if(dgSearchPane.SelectedItem == null)
+                {
+                    MessageBox.Show("You haven't selected an invoice. Please select an invoice.", "No Invoice Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                    return;
+                }
+
+                search.InvoiceSelected((clsInvoice)dgSearchPane.SelectedItem);
 
                 this.Close();
             }
@@ -127,6 +134,6 @@ namespace Group9FinalProject
                                              "HandleError Exception: " + ex.Message);
             }
         }
-#endregion
+        #endregion
     }
 }

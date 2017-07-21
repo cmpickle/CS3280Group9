@@ -21,10 +21,10 @@
                 <ComboBox Name="cboTotalCost" Width="80"/>
             </WrapPanel>
         </StackPanel>
-        <DataGrid Name="dgSearchPane" Height="450" Width="650" AutoGenerateColumns="False" SelectionMode="Single">
+        <DataGrid Name="dgSearchPane" Height="450" Width="650" CanUserAddRows="False" AutoGenerateColumns="False" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Invoice #" Binding="{Binding InvoiceNum}" IsReadOnly="True" Width="80"></DataGridTextColumn>
-                <DataGridTextColumn Header="Invoice Date" Binding="{Binding InvoiceDate}" IsReadOnly="True" Width="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Invoice Date" Binding="{Binding InvoiceDateString}" IsReadOnly="True" Width="100"></DataGridTextColumn>
                 <DataGridTextColumn Header="Total Charge" Binding="{Binding TotalCharge}" IsReadOnly="True"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
