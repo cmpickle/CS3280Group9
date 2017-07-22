@@ -20,6 +20,7 @@
                 <Label Content="Total Cost" />
                 <ComboBox Name="cboTotalCost" Width="80"/>
             </WrapPanel>
+            <Button Name="btnClearSelected" Content="Clear Selected"/>
         </StackPanel>
         <DataGrid Name="dgSearchPane" Height="450" Width="650" CanUserAddRows="False" AutoGenerateColumns="False" SelectionMode="Single">
             <DataGrid.Columns>
