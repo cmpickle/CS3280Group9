@@ -31,7 +31,7 @@ namespace Group9FinalProject
         /// <summary>
         /// The list of items bound to the datagrid
         /// </summary>
-        ObservableCollection<clsInvoice> items;
+        IEnumerable<clsInvoice> items;
         #endregion
 
         #region constructor
@@ -120,7 +120,72 @@ namespace Group9FinalProject
         {
             try
             {
-                List<clsInvoice> test = (List<clsInvoice>)from item in items where item == cboInvoiceNum.SelectedItem select item;
+                items = from item in items where item.InvoiceNum.ToString().Equals(cboInvoiceNum.SelectedItem) select item;
+                dgSearchPane.ItemsSource = items;
+            }
+            catch (Exception ex)
+            {
+                //This is the top level method so we want to handle the exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// The event handler for the Invoice Date combo box
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="e">The event args</param>
+        private void cboInvoiceDate_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                items = from item in items where item.InvoiceDateString.Equals(cboInvoiceDate.SelectedItem) select item;
+                dgSearchPane.ItemsSource = items;
+            }
+            catch (Exception ex)
+            {
+                //This is the top level method so we want to handle the exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// The event handler for the Total Cost combo box
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="e">The event args</param>
+        private void cboTotalCost_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                items = from item in items where item.TotalCharge.ToString().Equals(cboTotalCost.SelectedItem) select item;
+                dgSearchPane.ItemsSource = items;
+            }
+            catch (Exception ex)
+            {
+                //This is the top level method so we want to handle the exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// The event handler for the Clear Selected button
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="e">The event args</param>
+        private void btnClearSelected_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                cboInvoiceNum.SelectedItem = null;
+                cboInvoiceDate.SelectedItem = null;
+                cboTotalCost.SelectedItem = null;
+
+                items = search.GetInvoices();
+                dgSearchPane.ItemsSource = items;
             }
             catch (Exception ex)
             {

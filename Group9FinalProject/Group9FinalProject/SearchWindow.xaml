@@ -14,13 +14,13 @@
             </WrapPanel>
             <WrapPanel Margin="20, 0">
                 <Label Content="Date" />
-                <ComboBox Name="cboInvoiceDate" Width="80"/>
+                <ComboBox Name="cboInvoiceDate" Width="80" SelectionChanged="cboInvoiceDate_SelectionChanged"/>
             </WrapPanel>
             <WrapPanel Margin="20, 0">
                 <Label Content="Total Cost" />
-                <ComboBox Name="cboTotalCost" Width="80"/>
+                <ComboBox Name="cboTotalCost" Width="80" SelectionChanged="cboTotalCost_SelectionChanged"/>
             </WrapPanel>
-            <Button Name="btnClearSelected" Content="Clear Selected"/>
+            <Button Name="btnClearSelected" Content="Clear Selected" Click="btnClearSelected_Click"/>
         </StackPanel>
         <DataGrid Name="dgSearchPane" Height="450" Width="650" CanUserAddRows="False" AutoGenerateColumns="False" SelectionMode="Single">
             <DataGrid.Columns>
