@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Reflection;
@@ -65,9 +66,9 @@ namespace Group9FinalProject
         /// Returns a list of all of the invoices in the database
         /// </summary>
         /// <returns></returns>
-        public List<clsInvoice> GetInvoices()
+        public ObservableCollection<clsInvoice> GetInvoices()
         {
-            List<clsInvoice> result = new List<clsInvoice>();
+            ObservableCollection<clsInvoice> result = new ObservableCollection<clsInvoice>();
 
             try
             {

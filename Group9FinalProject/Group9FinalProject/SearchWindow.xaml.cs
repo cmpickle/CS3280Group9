@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Reflection;
@@ -26,6 +27,11 @@ namespace Group9FinalProject
         /// This object holds all of the searching business logic and search methods
         /// </summary>
         clsSearch search = new clsSearch();
+
+        /// <summary>
+        /// The list of items bound to the datagrid
+        /// </summary>
+        ObservableCollection<clsInvoice> items;
         #endregion
 
         #region constructor
@@ -37,8 +43,10 @@ namespace Group9FinalProject
             try
             {
                 InitializeComponent();
-                
-                dgSearchPane.ItemsSource = search.GetInvoices();
+
+                items = search.GetInvoices();
+
+                dgSearchPane.ItemsSource = items;
 
                 search.GetInvoiceNums().ForEach(num => cboInvoiceNum.Items.Add(num));
 
@@ -102,6 +110,25 @@ namespace Group9FinalProject
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
+
+        /// <summary>
+        /// The event handler for the Invoice Number combo box
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="e">The event args</param>
+        private void cboInvoiceNum_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                List<clsInvoice> test = (List<clsInvoice>)from item in items where item == cboInvoiceNum.SelectedItem select item;
+            }
+            catch (Exception ex)
+            {
+                //This is the top level method so we want to handle the exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
         #endregion
 
         #region public methods
@@ -113,7 +140,7 @@ namespace Group9FinalProject
         {
             search.SetView(invoiceInterface);
         }
-#endregion
+        #endregion
 
         #region error handling
         /// <summary>
