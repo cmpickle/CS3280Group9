@@ -35,9 +35,18 @@ namespace Group9FinalProject
         #region constructor
         public clsSearch()
         {
-            this.dataAccess = new clsDataAccess();
+            try
+            {
+                this.dataAccess = new clsDataAccess();
 
-            this.sql = new clsSQL();
+                this.sql = new clsSQL();
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
         #endregion
 
@@ -48,7 +57,16 @@ namespace Group9FinalProject
         /// <param name="invoiceInterface"></param>
         public void SetView(InvoiceInterface invoiceInterface)
         {
-            this.invoiceInterface = invoiceInterface;
+            try
+            {
+                this.invoiceInterface = invoiceInterface;
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
         /// <summary>
