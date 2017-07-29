@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Reflection;
@@ -34,9 +35,18 @@ namespace Group9FinalProject
         #region constructor
         public clsSearch()
         {
-            this.dataAccess = new clsDataAccess();
+            try
+            {
+                this.dataAccess = new clsDataAccess();
 
-            this.sql = new clsSQL();
+                this.sql = new clsSQL();
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
         #endregion
 
@@ -47,7 +57,16 @@ namespace Group9FinalProject
         /// <param name="invoiceInterface"></param>
         public void SetView(InvoiceInterface invoiceInterface)
         {
-            this.invoiceInterface = invoiceInterface;
+            try
+            {
+                this.invoiceInterface = invoiceInterface;
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
         /// <summary>
@@ -65,9 +84,9 @@ namespace Group9FinalProject
         /// Returns a list of all of the invoices in the database
         /// </summary>
         /// <returns></returns>
-        public List<clsInvoice> GetInvoices()
+        public ObservableCollection<clsInvoice> GetInvoices()
         {
-            List<clsInvoice> result = new List<clsInvoice>();
+            ObservableCollection<clsInvoice> result = new ObservableCollection<clsInvoice>();
 
             try
             {
