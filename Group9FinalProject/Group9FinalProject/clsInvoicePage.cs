@@ -193,10 +193,8 @@ namespace Group9FinalProject
 
         /// <summary>
         /// This function deletes a particular invoice from the database 
-        /// and returns the updated latest invoice number
         /// </summary>
         /// <param name="Invoice">Invoice</param>
-        /// <returns>invoice number</returns>
         public void DeleteInvoice(clsInvoice Invoice)
         {
             try
@@ -232,10 +230,7 @@ namespace Group9FinalProject
         {
             string NumOfInvoices = db.ExecuteScalarSQL(SQLQueries.getNumOfInvoices());
 
-            if (NumOfInvoices == "0")
-                return false;
-            else
-                return true;
+            return !(NumOfInvoices == "0");
         }
 
     }

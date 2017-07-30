@@ -75,28 +75,6 @@ namespace Group9FinalProject
         #endregion
 
         #region Event Handler
-        /// <summary>
-        /// The event handler for the Search Menu Item.
-        /// This is triggered when the user hits the menu item Search For Invoice
-        /// </summary>
-        /// <param name="sender">The sender object</param>
-        /// <param name="e">The event args</param>
-        private void miSearchInovice_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                // has to discuss how to pass the Invoice object back to the main window to be displayed
-                SearchWindow searchWindow = new SearchWindow();
-                searchWindow.SetView(this);
-                searchWindow.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                //This is the top level method so we want to handle the exception
-                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                            MethodInfo.GetCurrentMethod().Name, ex.Message);
-            }
-        }
 
         /// <summary>
         /// This function is triggered when the Edit Invoice button is clicked
@@ -394,7 +372,7 @@ namespace Group9FinalProject
         }
 
         /// <summary>
-        /// This function only allows numbers, decimal point, and back space to be input
+        /// This function only allows numbers, decimal point, and back space to be input in the Total Charge text box
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -560,12 +538,45 @@ namespace Group9FinalProject
         /// <param name="invoiceNum">The invoice number</param>
         public void SetInvoice(int invoiceNum)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DisplayInvoice(invoiceNum);
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
         #endregion
 
         #region Navigate To Other Pages
+
+        /// <summary>
+        /// The event handler for the Search Menu Item.
+        /// This is triggered when the user hits the menu item Search For Invoice
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="e">The event args</param>
+        private void miSearchInovice_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // has to discuss how to pass the Invoice object back to the main window to be displayed
+                SearchWindow searchWindow = new SearchWindow();
+                searchWindow.SetView(this);
+                searchWindow.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                //This is the top level method so we want to handle the exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
         /// <summary>
         /// This function is triggered when the Update Inventory menu item is clicked
         /// </summary>
@@ -585,7 +596,9 @@ namespace Group9FinalProject
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
+        #endregion
 
+        #region Error Handling
         /// <summary>
         /// Handle the error.
         /// </summary>
