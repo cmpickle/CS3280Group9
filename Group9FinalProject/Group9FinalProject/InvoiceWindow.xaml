@@ -15,11 +15,12 @@
             <Border BorderBrush="Black" BorderThickness="1" Height="100" Width="100"/>
         </ComboBox>
         <Label x:Name="lblSearchByProCode" Content="Search By Product Code" Margin="10,60,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="169"/>
-        <TextBox x:Name="txboInvoiceTotal" Height="34" Margin="674,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFF0F0F0" Foreground="#FF1F1F1F" TextAlignment="Justify" HorizontalAlignment="Left" Width="96" FontSize="18.667"/>
+        <TextBox x:Name="txboInvoiceTotal" Height="34" Margin="674,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFF0F0F0" Foreground="#FF1F1F1F" TextAlignment="Justify" HorizontalAlignment="Left" Width="96" FontSize="18.667" PreviewKeyDown="txboInvoiceTotal_PreviewKeyDown"/>
 
         <DataGrid AutoGenerateColumns="False" Canvas.Left="20" Canvas.Top="337" x:Name="dgAddedItems" Margin="10,117,10,0" Height="269" VerticalAlignment="Top" IsReadOnly="True" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="LineItem #" Binding="{Binding Path=LineItemNum}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Item Code" Binding="{Binding Path=ItemCode}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Item Description" Binding="{Binding Path=ItemDesc}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Unit Price" Binding="{Binding Path=ItemCost}"></DataGridTextColumn>
             </DataGrid.Columns>
@@ -28,11 +29,11 @@
         <Label x:Name="lblInvoiceNum" Content="Invoice Number: TBD" VerticalAlignment="Top" Margin="10,31,0,0" HorizontalAlignment="Left" Width="285"/>
         <Label x:Name="lblInvoiceDate" Content="Invoice Date: " Margin="300,31,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="85"/>
         <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="220,86,0,0" VerticalAlignment="Top" Width="75" Height="26" Background="#FFFDFAC9" Click="btnAdd_Click"/>
-        <Button x:Name="btnSave" Content="Save Changes" HorizontalAlignment="Left" Margin="436,401,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696"/>
+        <Button x:Name="btnSave" Content="Save Changes" HorizontalAlignment="Left" Margin="436,401,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Click="btnSave_Click"/>
         <Button x:Name="btnEditInvoice" Content="Edit Invoice" HorizontalAlignment="Left" Margin="310,401,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Click="btnEditInvoice_Click"/>
-        <Button x:Name="btnAddInvoice" Content="Add Invoice" HorizontalAlignment="Left" Margin="182,401,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696"/>
-        <Button x:Name="btnDeleteInvoice" Content="Delete Invoice" HorizontalAlignment="Left" Margin="683,401,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FFD9D0FF"/>
-        <DatePicker x:Name="dpInvoiceDate" HorizontalAlignment="Left" Margin="385,32,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnAddInvoice" Content="Add Invoice" HorizontalAlignment="Left" Margin="182,401,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Click="btnAddInvoice_Click"/>
+        <Button x:Name="btnDeleteInvoice" Content="Delete Invoice" HorizontalAlignment="Left" Margin="683,401,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FFD9D0FF" Click="btnDeleteInvoice_Click"/>
+        <DatePicker x:Name="dpInvoiceDate" HorizontalAlignment="Left" Margin="385,32,0,0" VerticalAlignment="Top" Focusable="False"/>
         <Label x:Name="lblTotalCharge" Content="Total Charge:  $" HorizontalAlignment="Left" Margin="570,32,0,0" VerticalAlignment="Top" FontSize="13.333" Background="#FF535353" Height="34" Foreground="#FF0CFF00" Width="104"/>
         <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="560,401,0,0" VerticalAlignment="Top" Width="96" Height="43" Background="#FF92E696" Click="btnCancel_Click"/>
     </Grid>

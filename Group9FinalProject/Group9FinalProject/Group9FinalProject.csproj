@@ -80,7 +80,7 @@
     <Compile Include="clsInvoice.cs" />
     <Compile Include="clsInvoiceItem.cs" />
     <Compile Include="clsItem.cs" />
-    <Compile Include="clsPopulateInvoicePg.cs" />
+    <Compile Include="clsInvoicePage.cs" />
     <Compile Include="clsSQL.cs" />
     <Compile Include="InvoiceDataSet.cs">
       <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
