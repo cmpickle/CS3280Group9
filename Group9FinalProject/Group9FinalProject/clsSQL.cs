@@ -19,11 +19,22 @@ namespace Group9FinalProject
         /// <returns>All data for the given invoice.</returns>
         public string SelectInvoiceData(int InvoiceNum)
         {
-            string sSQL = "SELECT Invoices.InvoiceNum, InvoiceDate, TotalCharge, ItemDesc, Cost, LineItemNum "
+            string sSQL = "SELECT Invoices.InvoiceNum, InvoiceDate, TotalCharge, ItemDesc, Cost, LineItemNum, LineItems.ItemCode "
                 + "FROM Invoices, ItemDesc, LineItems "
                 + "WHERE Invoices.InvoiceNum = LineItems.InvoiceNum "
                 + "AND ItemDesc.ItemCode = LineItems.ItemCode " 
                 + "AND Invoices.InvoiceNum = " + InvoiceNum.ToString();
+            return sSQL;
+        }
+
+        /// <summary>
+        /// This SQL statement select all the line items related to a particular invoice
+        /// </summary>
+        /// <param name="InvoiceNum"></param>
+        /// <returns></returns>
+        public string SelectLineItems(int InvoiceNum)
+        {
+            string sSQL = "SELECT LineItemNum FROM LineItems WHERE InvoiceNum = " + InvoiceNum.ToString();
             return sSQL;
         }
 
@@ -59,25 +70,14 @@ namespace Group9FinalProject
         }
 
         /// <summary>
-        /// This SQL gets the last line item number in a particular invoice
-        /// </summary>
-        /// <param name="invoiceNum"></param>
-        /// <returns></returns>
-        public string SelectTheLastLineItemNum(int invoiceNum)
-        {
-            string sSQL = "SELECT MAX(LineItemNum) FROM LineItems WHERE InvoiceNum = " + invoiceNum.ToString();
-            return sSQL;
-        }
-
-        /// <summary>
         /// This SQL inserts a new row into the Invoices table
         /// </summary>
         /// <param name="date"></param>
         /// <param name="totalCharge"></param>
         /// <returns></returns>
-        public string InsertNewInvoice(DateTime date, decimal totalCharge)
+        public string InsertNewInvoice(string date, decimal totalCharge)
         {
-            string sSQL = "INSERT INTO Invoices (InvoiceDate, TotalCharge) Values (#" + date.ToString() + "#, " + totalCharge.ToString() +");";
+            string sSQL = "INSERT INTO Invoices (InvoiceDate, TotalCharge) Values (#" + date + "#, " + totalCharge.ToString() +");";
             return sSQL;
         }
 
@@ -116,6 +116,27 @@ namespace Group9FinalProject
         public string deleteLineItem(int invoiceNum, int lineItemNum)
         {
             string sSQL = "DELETE FROM LineItems WHERE InvoiceNum = " + invoiceNum.ToString() + " AND LineItemNum = " + lineItemNum.ToString();
+            return sSQL;
+        }
+
+        /// <summary>
+        /// This SQL delete a particular invoice row in the Invoices table
+        /// </summary>
+        /// <param name="invoiceNum"></param>
+        /// <returns></returns>
+        public string deleteInvoice(int invoiceNum)
+        {
+            string sSQL = "DELETE FROM Invoices WHERE InvoiceNum = " + invoiceNum.ToString();
+            return sSQL;
+        }
+
+        /// <summary>
+        /// This SQL finds out the number of invoices exist in the system
+        /// </summary>
+        /// <returns></returns>
+        public string getNumOfInvoices()
+        {
+            string sSQL = "SELECT COUNT(*) FROM Invoices";
             return sSQL;
         }
         #endregion

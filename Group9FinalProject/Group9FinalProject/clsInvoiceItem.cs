@@ -27,6 +27,11 @@ namespace Group9FinalProject
         int iLineItemNum;
 
         /// <summary>
+        /// This is the item code for the item
+        /// </summary>
+        string sItemCode;
+
+        /// <summary>
         /// This is the getter and setter function for sItemDesc
         /// </summary>
         public string ItemDesc
@@ -52,5 +57,12 @@ namespace Group9FinalProject
             get { return iLineItemNum; }
             set { iLineItemNum = value; }
         }
+
+        public string ItemCode
+        {
+            get { return sItemCode; }
+            set { sItemCode = value; }
+        }
+        
     }
 }
