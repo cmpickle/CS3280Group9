@@ -533,17 +533,26 @@ namespace Group9FinalProject
         /// </summary>
         private void SetNoInvoiceLeftMode()
         {
-            SetReadOnlyMode();
+            try
+            {
+                SetReadOnlyMode();
 
-            btnEditInvoice.IsEnabled = false;
-            btnDeleteInvoice.IsEnabled = false;
+                btnEditInvoice.IsEnabled = false;
+                btnDeleteInvoice.IsEnabled = false;
 
-            dgAddedItems.ItemsSource = null;
-            cboItems.ItemsSource = null;
-            cboItems.Items.Clear();
-            dpInvoiceDate.Text = "01/01/2000";
-            txboInvoiceTotal.Text = "";
-            lblInvoiceNum.Content = "Invoice Number:    ";
+                dgAddedItems.ItemsSource = null;
+                cboItems.ItemsSource = null;
+                cboItems.Items.Clear();
+                dpInvoiceDate.Text = "01/01/2000";
+                txboInvoiceTotal.Text = "";
+                lblInvoiceNum.Content = "Invoice Number:    ";
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
         #endregion
