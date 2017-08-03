@@ -313,6 +313,7 @@ namespace Group9FinalProject
                 bIsAddingNewInvoice = true;
 
                 SetEditableMode();
+                txboInvoiceTotal.IsEnabled = false;
 
                 // Clear all the fields for adding a new invoice
                 lblInvoiceNum.Content = "Invoice Number: TBD";

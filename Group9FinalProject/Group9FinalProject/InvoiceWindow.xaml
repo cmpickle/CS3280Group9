@@ -20,27 +20,27 @@
         </Menu>
         <ComboBox x:Name="cboItems" Margin="10,86,0,0" VerticalAlignment="Top" Height="26" HorizontalAlignment="Left" Width="178" IsEditable="True"/>
 
-        <Label x:Name="lblSearchByProCode" Content="Search By Product Code" Margin="10,60,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="169"/>
+        <Label x:Name="lblSearchByProCode" Content="Search By Item Code" Margin="10,60,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="169"/>
         <TextBox x:Name="txboInvoiceTotal" Height="34" Margin="674,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Justify" HorizontalAlignment="Left" Width="96" FontSize="18.667" PreviewKeyDown="txboInvoiceTotal_PreviewKeyDown"/>
 
-        <DataGrid AutoGenerateColumns="False" Canvas.Left="20" Canvas.Top="337" x:Name="dgAddedItems" Margin="10,117,10,0" Height="269" VerticalAlignment="Top" IsReadOnly="True" >
+        <DataGrid AutoGenerateColumns="False" Canvas.Left="20" Canvas.Top="337" x:Name="dgAddedItems" Margin="10,117,10,0" Height="348" VerticalAlignment="Top" IsReadOnly="True" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="LineItem #" Binding="{Binding Path=LineItemNum}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Line Item #" Binding="{Binding Path=LineItemNum}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Item Code" Binding="{Binding Path=ItemCode}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Item Description" Binding="{Binding Path=ItemDesc}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Unit Price" Binding="{Binding Path=ItemCost}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="btnDeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="10,401,0,0" VerticalAlignment="Top" Click="btnDeleteItem_Click"/>
+        <Button x:Name="btnDeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="10,498,0,0" VerticalAlignment="Top" Click="btnDeleteItem_Click"/>
         <Label x:Name="lblInvoiceNum" Content="Invoice Number: TBD" VerticalAlignment="Top" Margin="10,31,0,0" HorizontalAlignment="Left" Width="285"/>
         <Label x:Name="lblInvoiceDate" Content="Invoice Date: " Margin="300,31,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="85"/>
         <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="220,82,0,0" VerticalAlignment="Top" Click="btnAdd_Click"/>
-        <Button x:Name="btnSave" Content="Save Changes" HorizontalAlignment="Left" Margin="420, 401,0,0" VerticalAlignment="Top" Click="btnSave_Click"/>
-        <Button x:Name="btnEditInvoice" Content="Edit Invoice" HorizontalAlignment="Left" Margin="290,401,0,0" VerticalAlignment="Top" Click="btnEditInvoice_Click"/>
-        <Button x:Name="btnAddInvoice" Content="Add Invoice" HorizontalAlignment="Left" Margin="172,401,0,0" VerticalAlignment="Top" Click="btnAddInvoice_Click"/>
-        <Button x:Name="btnDeleteInvoice" Content="Delete Invoice" HorizontalAlignment="Left" Margin="663,401,0,0" VerticalAlignment="Top" Click="btnDeleteInvoice_Click"/>
+        <Button x:Name="btnSave" Content="Save Changes" HorizontalAlignment="Left" Margin="421,498,0,0" VerticalAlignment="Top" Click="btnSave_Click" Width="120"/>
+        <Button x:Name="btnEditInvoice" Content="Edit Invoice" HorizontalAlignment="Left" Margin="300,498,0,0" VerticalAlignment="Top" Click="btnEditInvoice_Click"/>
+        <Button x:Name="btnAddInvoice" Content="Add Invoice" HorizontalAlignment="Left" Margin="171,498,0,0" VerticalAlignment="Top" Click="btnAddInvoice_Click"/>
+        <Button x:Name="btnDeleteInvoice" Content="Delete Invoice" HorizontalAlignment="Left" Margin="650,498,0,0" VerticalAlignment="Top" Click="btnDeleteInvoice_Click"/>
         <DatePicker x:Name="dpInvoiceDate" HorizontalAlignment="Left" Margin="385,32,0,0" VerticalAlignment="Top" Focusable="False"/>
         <Label x:Name="lblTotalCharge" Content="Total Charge:  $" HorizontalAlignment="Left" Margin="570,32,0,0" VerticalAlignment="Top" FontSize="13.333" Height="34" Width="104"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="547,401,0,0" VerticalAlignment="Top" Click="btnCancel_Click"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="558,498,0,0" VerticalAlignment="Top" Click="btnCancel_Click"/>
     </Grid>
 </Window>
