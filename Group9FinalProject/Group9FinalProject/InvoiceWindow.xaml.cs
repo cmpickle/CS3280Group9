@@ -59,9 +59,17 @@ namespace Group9FinalProject
                 cboItems.Items.Clear(); // Clear the items in the combo box
                 SetReadOnlyMode();
 
-                // populate the data grid with the latest invoice data when the user first open the program
-                int LatestInvNum = InvoicePage.getLatestInvoiceNum();
-                DisplayInvoice(LatestInvNum);
+                // Check if there is any invoice inside the database
+                if (InvoicePage.IsThereInvoice())
+                {
+                    // Populate the data grid with the latest invoice data when the user first open the program
+                    int LatestInvNum = InvoicePage.getLatestInvoiceNum();
+                    DisplayInvoice(LatestInvNum);
+                }
+                else
+                {
+                    SetNoInvoiceLeftMode();
+                }
 
                 bIsAddingNewInvoice = false;
             }
@@ -348,17 +356,7 @@ namespace Group9FinalProject
                         }
                         else
                         {
-                            SetReadOnlyMode();
-
-                            btnEditInvoice.IsEnabled = false;
-                            btnDeleteInvoice.IsEnabled = false;
-
-                            dgAddedItems.ItemsSource = null;
-                            cboItems.ItemsSource = null;
-                            cboItems.Items.Clear();
-                            dpInvoiceDate.Text = "01/01/2000";
-                            txboInvoiceTotal.Text = "";
-                            lblInvoiceNum.Content = "Invoice Number:    ";
+                            SetNoInvoiceLeftMode();
                         }
                     }
                 }
@@ -527,6 +525,25 @@ namespace Group9FinalProject
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
+        }
+
+        /// <summary>
+        /// This function enables the mode when there is no invoice left in the system 
+        /// for the Invoice Window
+        /// </summary>
+        private void SetNoInvoiceLeftMode()
+        {
+            SetReadOnlyMode();
+
+            btnEditInvoice.IsEnabled = false;
+            btnDeleteInvoice.IsEnabled = false;
+
+            dgAddedItems.ItemsSource = null;
+            cboItems.ItemsSource = null;
+            cboItems.Items.Clear();
+            dpInvoiceDate.Text = "01/01/2000";
+            txboInvoiceTotal.Text = "";
+            lblInvoiceNum.Content = "Invoice Number:    ";
         }
 
         #endregion
