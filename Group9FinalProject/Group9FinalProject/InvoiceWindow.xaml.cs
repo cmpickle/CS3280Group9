@@ -357,6 +357,7 @@ namespace Group9FinalProject
                         else
                         {
                             SetNoInvoiceLeftMode();
+                            currInvoice = null;
                         }
                     }
                 }
@@ -367,6 +368,33 @@ namespace Group9FinalProject
                            MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
 
+        }
+
+        /// <summary>
+        /// This function refreshes the data presenting in the Invoice Window
+        /// every time it regains focus
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InvoiceWindow_GotFocus(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (InvoicePage.IsThereInvoice())
+                {
+                    DisplayInvoice(currInvoice.InvoiceNum);
+                }
+                else
+                {
+                    SetNoInvoiceLeftMode();
+                }
+            }
+            catch (Exception ex)
+            {
+                //This is the top level method so we want to handle the exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
         }
 
         /// <summary>
@@ -645,7 +673,6 @@ namespace Group9FinalProject
         }
 
         #endregion
-
     }
 
 }
