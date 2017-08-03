@@ -43,6 +43,11 @@ namespace Group9FinalProject
         /// </summary>
         clsInvoice newInvoice;
 
+        /// <summary>
+        /// This Boolean variable is true when the Invoice Window regains focus from the closing of other windows
+        /// </summary>
+        bool bIsRegainingFocus;
+
         #endregion
 
         #region Constructor
@@ -59,11 +64,20 @@ namespace Group9FinalProject
                 cboItems.Items.Clear(); // Clear the items in the combo box
                 SetReadOnlyMode();
 
-                // populate the data grid with the latest invoice data when the user first open the program
-                int LatestInvNum = InvoicePage.getLatestInvoiceNum();
-                DisplayInvoice(LatestInvNum);
+                // Check if there is any invoice inside the database
+                if (InvoicePage.IsThereInvoice())
+                {
+                    // Populate the data grid with the latest invoice data when the user first open the program
+                    int LatestInvNum = InvoicePage.getLatestInvoiceNum();
+                    DisplayInvoice(LatestInvNum);
+                }
+                else
+                {
+                    SetNoInvoiceLeftMode();
+                }
 
                 bIsAddingNewInvoice = false;
+                bIsRegainingFocus = false;
             }
             catch (Exception ex)
             {
@@ -348,17 +362,8 @@ namespace Group9FinalProject
                         }
                         else
                         {
-                            SetReadOnlyMode();
-
-                            btnEditInvoice.IsEnabled = false;
-                            btnDeleteInvoice.IsEnabled = false;
-
-                            dgAddedItems.ItemsSource = null;
-                            cboItems.ItemsSource = null;
-                            cboItems.Items.Clear();
-                            dpInvoiceDate.Text = "01/01/2000";
-                            txboInvoiceTotal.Text = "";
-                            lblInvoiceNum.Content = "Invoice Number:    ";
+                            SetNoInvoiceLeftMode();
+                            currInvoice = null;
                         }
                     }
                 }
@@ -369,6 +374,40 @@ namespace Group9FinalProject
                            MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
 
+        }
+
+        /// <summary>
+        /// This function refreshes the data presenting in the Invoice Window
+        /// every time it regains focus
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InvoiceWindow_GotFocus(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Check to see it is actually regaining focus from the close of other window
+                if (bIsRegainingFocus)
+                {
+                    if (InvoicePage.IsThereInvoice())
+                    {
+                        DisplayInvoice(currInvoice.InvoiceNum);
+                    }
+                    else
+                    {
+                        SetNoInvoiceLeftMode();
+                    }
+                    bIsRegainingFocus = false;
+                }
+                else
+                    return;
+            }
+            catch (Exception ex)
+            {
+                //This is the top level method so we want to handle the exception
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
         }
 
         /// <summary>
@@ -493,6 +532,9 @@ namespace Group9FinalProject
                 btnEditInvoice.IsEnabled = true;
                 btnAddInvoice.IsEnabled = true;
                 btnDeleteInvoice.IsEnabled = true;
+
+                miUpdateInventory.IsEnabled = true;
+                miSearchInovice.IsEnabled = true;
             }
             catch (Exception ex)
             {
@@ -520,6 +562,37 @@ namespace Group9FinalProject
                 btnAddInvoice.IsEnabled = false;
                 btnEditInvoice.IsEnabled = false;
                 btnDeleteInvoice.IsEnabled = false;
+
+                miSearchInovice.IsEnabled = false;
+                miUpdateInventory.IsEnabled = false;
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// This function enables the mode when there is no invoice left in the system 
+        /// for the Invoice Window
+        /// </summary>
+        private void SetNoInvoiceLeftMode()
+        {
+            try
+            {
+                SetReadOnlyMode();
+
+                btnEditInvoice.IsEnabled = false;
+                btnDeleteInvoice.IsEnabled = false;
+
+                dgAddedItems.ItemsSource = null;
+                cboItems.ItemsSource = null;
+                cboItems.Items.Clear();
+                dpInvoiceDate.Text = "01/01/2000";
+                txboInvoiceTotal.Text = "";
+                lblInvoiceNum.Content = "Invoice Number:    ";
             }
             catch (Exception ex)
             {
@@ -564,7 +637,6 @@ namespace Group9FinalProject
         {
             try
             {
-                // has to discuss how to pass the Invoice object back to the main window to be displayed
                 SearchWindow searchWindow = new SearchWindow();
                 searchWindow.SetView(this);
                 searchWindow.ShowDialog();
@@ -588,6 +660,8 @@ namespace Group9FinalProject
             {
                 InventoryWindow inventoryWindow = new InventoryWindow();
                 inventoryWindow.ShowDialog();
+
+                bIsRegainingFocus = true;
             }
             catch (Exception ex)
             {
@@ -619,7 +693,6 @@ namespace Group9FinalProject
         }
 
         #endregion
-
     }
 
 }
