@@ -222,14 +222,20 @@ namespace Group9FinalProject
                 else
                 {
                     cboItems.SelectedItem = null;
-                    DisplayInvoice(currInvoice.InvoiceNum);
 
-                    // If the Cancel button is clicked when system is adding a new invoice
-                    if (bIsAddingNewInvoice)
+                    if (currInvoice != null)
                     {
-                        newInvoice = null;
-                        bIsAddingNewInvoice = false;
+                        DisplayInvoice(currInvoice.InvoiceNum);
+
+                        // If the Cancel button is clicked when system is adding a new invoice
+                        if (bIsAddingNewInvoice)
+                        {
+                            newInvoice = null;
+                            bIsAddingNewInvoice = false;
+                        }
                     }
+                    else
+                        SetNoInvoiceLeftMode();
                 }
             }
             catch (Exception ex)
