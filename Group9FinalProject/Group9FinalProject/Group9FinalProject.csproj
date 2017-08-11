@@ -61,6 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="clsInventory.cs" />
+    <Compile Include="clsInventoryBtnLogic.cs" />
     <Compile Include="clsPopulateInventoryPg.cs" />
     <Compile Include="clsSearch.cs" />
     <Compile Include="InventoryWindow.xaml.cs">

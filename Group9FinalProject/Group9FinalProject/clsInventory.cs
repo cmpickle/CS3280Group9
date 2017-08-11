@@ -25,11 +25,6 @@ namespace Group9FinalProject
         private decimal dItemCost;
 
         /// <summary>
-        /// This is the inventory items collection for the inventory
-        /// </summary>
-        private ObservableCollection<clsInvoiceItem> ocItemsCollection;
-
-        /// <summary>
         /// This is the getter and setter function for attribute sInventoryLetter
         /// </summary>
         public string InventoryLetter
