@@ -15,7 +15,8 @@ namespace Group9FinalProject
     /// as well as, populates the comboBoxes
     /// </summary>
     class clsPopulateInventoryPg
-    {   /// <summary>
+    {   
+        /// <summary>
         /// Connects to the clsDataAccess class
         /// </summary>
         clsDataAccess db;
@@ -54,9 +55,9 @@ namespace Group9FinalProject
         /// Provides the information for the InventoryWindow from the database
         /// </summary>
         /// <returns></returns>
-        public List<clsInventory> theInventory()
+        public ObservableCollection<clsInventory> theInventory()
         {
-            List<clsInventory> inv = new List<clsInventory>();
+            ObservableCollection<clsInventory> inv = new ObservableCollection<clsInventory>();
 
             try
             {
@@ -134,6 +135,32 @@ namespace Group9FinalProject
 
             return toRet;
         }
+
+        /// <summary>
+        /// Retrieves ItemCodes from LineItems
+        /// </summary>
+        /// <returns></returns>
+        public List<String> GetLineItems_ItemCodes()
+        {
+            List<String> toRet = new List<String>();
+
+            try
+            {
+                int num = 0;
+                ds = db.ExecuteSQLStatement(SQLQueries.RetrieveLineItems_ItemCodes(), ref num);
+                for(int i = 0; i < num; i++)
+                {
+                    toRet.Add(ds.Tables[0].Rows[i][0].ToString());                    
+                }
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+            return toRet;
+        }        
 
     }
 }

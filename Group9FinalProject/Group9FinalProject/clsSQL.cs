@@ -200,7 +200,7 @@ namespace Group9FinalProject
         /// Select all columns in the ItemDesc table
         /// </summary>
         /// <returns></returns>
-        public String SelectAllInventory()
+        public string SelectAllInventory()
         {
             string sSQL = "SELECT ItemCode, ItemDesc, Cost FROM ItemDesc ORDER BY ItemCode ASC";
             return sSQL;
@@ -210,7 +210,7 @@ namespace Group9FinalProject
         /// Select all items for ItemCode
         /// </summary>
         /// <returns></returns>
-        public String SelectAllInventoryItemCode()
+        public string SelectAllInventoryItemCode()
         {
             string sSQL = "SELECT DISTINCT ItemCode FROM ItemDesc ORDER BY ItemCode ASC";
             return sSQL;
@@ -220,7 +220,7 @@ namespace Group9FinalProject
         /// Select an item description depending on what the user types in
         /// </summary>
         /// <returns></returns>
-        public String SelectAllInventoryItemDesc(string userInp)
+        public string SelectAllInventoryItemDesc(string userInp)
         {
             string sSQL = String.Format("SELECT ItemDesc FROM ItemDesc "
                         + "WHERE ItemDesc LIKE \"{0}\" ORDER BY ItemCode", userInp);
@@ -231,11 +231,40 @@ namespace Group9FinalProject
         /// Select all items in the cost column
         /// </summary>
         /// <returns></returns>
-        public String SelectAllInventoryCost()
+        public string SelectAllInventoryCost()
         {
             string sSQL = "SELECT DISTINCT Cost FROM ItemDesc ORDER BY Cost ASC";
             return sSQL;
         }
+
+        ///<summary>
+        /// Select row for selected item code in search bar
+        /// </summary>
+        /// 
+        public string SelectRowBy_ItemCode(string itemCode)
+        {
+            string sSQL = "SELECT ItemCode, ItemDesc, Cost FROM ItemDesc WHERE ItemCode = \"" + itemCode + "\"";
+            return sSQL;
+        }
+
+        ///<summary>
+        /// Select rows for specific cost
+        /// </summary>
+        public string SelectRowBy_Cost(decimal cost)
+        {
+            string sSQL = "SELECT ItemCode, ItemDesc, Cost FROM ItemDesc WHERE Cost = " + cost;
+            return sSQL;
+        }
+
+        ///<summary>
+        ///Select rows for item description
+        /// </summary>
+        public string SelectRowBy_Desc(string itemDesc)
+        {
+            string sSQL = "SELECT ItemCode, ItemDesc, Cost FROM ItemDesc WHERE itemDesc LIKE \"" + itemDesc + "\"";
+            return sSQL;
+        }
+
         #endregion
 
         #region Inventory Button Statements
@@ -243,7 +272,7 @@ namespace Group9FinalProject
         /// Adds an item to the list. Allows adding a primary key value.
         /// </summary>
         /// <returns></returns>
-        public String AddInventoryItem(string iCode, string iDesc, decimal theCost)
+        public string AddInventoryItem(string iCode, string iDesc, decimal theCost)
         {
             string sSQL = String.Format("INSERT INTO ItemDesc (ItemCode, ItemDesc, Cost) "
                 + "VALUES (\"{0}\", \"{1}\", {2})", iCode, iDesc, theCost);
@@ -254,10 +283,10 @@ namespace Group9FinalProject
         /// Saves changes to a row. Does not update primary key value.
         /// </summary>
         /// <returns></returns>
-        public String SaveInventoryChanges(string iCode, string iDesc, decimal theCost)
+        public string SaveInventoryChanges(string iCode, string iDesc, decimal theCost)
         {
-            string sSQL = String.Format("UPDATE ItemDesc Set ItemDesc = {1}, Cost = {2}"
-                + "WHERE ItemCode = {0}", iCode, iDesc, theCost);
+            string sSQL = String.Format("UPDATE ItemDesc Set ItemDesc = \"{1}\", Cost = {2} "
+                + "WHERE ItemCode = \"{0}\"", iCode, iDesc, theCost);
             return sSQL;
         }
 
@@ -265,11 +294,26 @@ namespace Group9FinalProject
         /// Deletes a row based on primary key value selection
         /// </summary>
         /// <returns></returns>
-        public String DeleteInventoryRow(string iCode)
+        public string DeleteInventoryRow(string iCode)
         {
-            string sSQL = String.Format("DELETE FROM ItemDesc"
-                + "WHERE ItemCode = {0}", iCode);
+            string sSQL = String.Format("DELETE FROM ItemDesc "
+                + "WHERE ItemCode = \"{0}\"" + ";", iCode);
             return sSQL;
+        }
+        #endregion
+
+        #region LineItems Statements
+        ///<summary>
+        /// Returns ItemCode from LineItems.
+        /// If a person wants to delete an ItemCode row, it checks to see
+        /// if it is still part of a current invoice. If it is, the user
+        /// cannot delete it. 
+        /// </summary> 
+        public string RetrieveLineItems_ItemCodes()
+        {
+            string sSQL = "SELECT DISTINCT ItemCode FROM LineItems";
+            return sSQL;
+
         }
         #endregion
     }
