@@ -20,5 +20,10 @@ namespace Group9FinalProject
         /// </summary>
         /// <param name="invoiceNum">The selected invoice's number</param>
         void SetInvoice(int invoiceNum);
+
+        /// <summary>
+        /// This function will be implemented in the Invoice Window to refresh the updated items info
+        /// </summary>
+        void RefreshItems();
     }
 }

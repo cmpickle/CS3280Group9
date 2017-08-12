@@ -43,11 +43,6 @@ namespace Group9FinalProject
         /// </summary>
         clsInvoice newInvoice;
 
-        /// <summary>
-        /// This Boolean variable is true when the Invoice Window regains focus from the closing of other windows
-        /// </summary>
-        bool bIsRegainingFocus;
-
         #endregion
 
         #region Constructor
@@ -77,7 +72,6 @@ namespace Group9FinalProject
                 }
 
                 bIsAddingNewInvoice = false;
-                bIsRegainingFocus = false;
             }
             catch (Exception ex)
             {
@@ -384,40 +378,6 @@ namespace Group9FinalProject
         }
 
         /// <summary>
-        /// This function refreshes the data presenting in the Invoice Window
-        /// every time it regains focus
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void InvoiceWindow_GotFocus(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                // Check to see it is actually regaining focus from the close of other window
-                if (bIsRegainingFocus)
-                {
-                    if (InvoicePage.IsThereInvoice())
-                    {
-                        DisplayInvoice(currInvoice.InvoiceNum);
-                    }
-                    else
-                    {
-                        SetNoInvoiceLeftMode();
-                    }
-                    bIsRegainingFocus = false;
-                }
-                else
-                    return;
-            }
-            catch (Exception ex)
-            {
-                //This is the top level method so we want to handle the exception
-                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                            MethodInfo.GetCurrentMethod().Name, ex.Message);
-            }
-        }
-
-        /// <summary>
         /// This function only allows numbers, decimal point, and back space to be input in the Total Charge text box
         /// </summary>
         /// <param name="sender"></param>
@@ -630,6 +590,31 @@ namespace Group9FinalProject
             }
         }
 
+        /// <summary>
+        /// This function is called when the Inventory Window is closed
+        /// </summary>
+        public void RefreshItems()
+        {
+            try
+            {
+                if (InvoicePage.IsThereInvoice())
+                {
+                    dgAddedItems.ItemsSource = null;
+                    DisplayInvoice(currInvoice.InvoiceNum);
+                }
+                else
+                {
+                    SetNoInvoiceLeftMode();
+                }
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
         #endregion
 
         #region Navigate To Other Pages
@@ -639,7 +624,7 @@ namespace Group9FinalProject
         /// This is triggered when the user hits the menu item Search For Invoice
         /// </summary>
         /// <param name="sender">The sender object</param>
-        /// <param name="e">The event args</param>
+        /// <param name="e">The event argument</param>
         private void miSearchInovice_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -666,9 +651,8 @@ namespace Group9FinalProject
             try
             {
                 InventoryWindow inventoryWindow = new InventoryWindow();
+                inventoryWindow.SetView(this);
                 inventoryWindow.ShowDialog();
-
-                bIsRegainingFocus = true;
             }
             catch (Exception ex)
             {

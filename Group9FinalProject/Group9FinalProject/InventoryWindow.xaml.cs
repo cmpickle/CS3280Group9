@@ -351,7 +351,43 @@ namespace Group9FinalProject
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
-        
+
+        /// <summary>
+        /// This function is triggered when the Inventory Window is closed down
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InventoryWindow_Closed(object sender, EventArgs e)
+        {
+            try
+            {
+                clsPopInventory.RefreshInvoiceItems();
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Sets the instance of the InvoiceInterface for the clsPopulateInventoryPg class
+        /// </summary>
+        /// <param name="invoiceInterface"></param>
+        public void SetView(InvoiceInterface invoiceInterface)
+        {
+            try
+            {
+                clsPopInventory.SetView(invoiceInterface);
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
         /// <summary>
         /// Clears the search bar items at the top
         /// </summary>
@@ -481,7 +517,8 @@ namespace Group9FinalProject
                                              "HandleError Exception: " + ex.Message);
             }
         }
+
+
         #endregion
-        
     }
 }

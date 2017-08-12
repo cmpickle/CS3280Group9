@@ -29,7 +29,14 @@ namespace Group9FinalProject
         /// <summary>
         /// Connects to the clsSQL class
         /// </summary>
-        clsSQL SQLQueries;        
+        clsSQL SQLQueries;
+
+        /// <summary>
+        /// This is the interface for interacting with the invoice window
+        /// This interface will be used to call the 
+        /// implemented refresh function in Invoice Window to refresh the updated items info
+        /// </summary>
+        InvoiceInterface invoiceInterface;       
         
         /// <summary>
         /// clsPopulateInventoryPg constructor
@@ -160,7 +167,39 @@ namespace Group9FinalProject
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
             return toRet;
-        }        
+        } 
+        
+        public void RefreshInvoiceItems()
+        {
+            try
+            {
+                invoiceInterface.RefreshItems();
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Sets the instance of the InvoiceInterface for the class
+        /// </summary>
+        /// <param name="invoiceInterface"></param>
+        public void SetView(InvoiceInterface invoiceInterface)
+        {
+            try
+            {
+                this.invoiceInterface = invoiceInterface;
+            }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
 
     }
 }

@@ -44,7 +44,7 @@ namespace Group9FinalProject
         /// <returns></returns>
         public string SelectAllItems()
         {
-            string sSQL = "SELECT * FROM ItemDesc";
+            string sSQL = "SELECT * FROM ItemDesc ORDER BY ItemCode";
             return sSQL;
         }
 
