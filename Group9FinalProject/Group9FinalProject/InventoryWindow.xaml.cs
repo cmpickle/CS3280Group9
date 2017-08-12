@@ -28,19 +28,9 @@ namespace Group9FinalProject
         clsPopulateInventoryPg clsPopInventory;
 
         /// <summary>
-        /// Currently selected row
-        /// </summary>
-        string ItemCodeRowSelected, ItemDescRowSelected, ItemCostRowSelected;
-
-        /// <summary>
         /// Populates the datagrid for start and when items are selected on the search bar
         /// </summary>
         IEnumerable<clsInventory> invp;
-
-        /// <summary>
-        /// Number of times items have been clicked in DataGrid Selection
-        /// </summary>
-        int count;
 
         /// <summary>
         /// The code behind the GUI. Pulls info in from other classes.
@@ -57,7 +47,6 @@ namespace Group9FinalProject
                 
                 clsPopInventory.GetInventoryCode().ForEach(num => cboInventoryCode.Items.Add(num));
                 clsPopInventory.GetInventoryCost().ForEach(num => cboInventoryCost.Items.Add(num));
-                btnDeleteItem.IsEnabled = false;
 
             }
             catch (Exception ex)
@@ -118,11 +107,12 @@ namespace Group9FinalProject
                     cboInventoryCost.SelectedItem = null;
 
                     invp = clsPopInventory.theInventory();
-                    count = 0;
                     dgInventory.ItemsSource = invp;
                     tbItemCodeInp.Text = "";
                     tbItemDescInp.Text = "";
                     tbItemCostInp.Text = "";
+                    btnDeleteItem.IsEnabled = false;
+                    btnEditItem.IsEnabled = false;
                 }
             }
             else
@@ -143,16 +133,10 @@ namespace Group9FinalProject
         {
             try
             {
-                if (dgInventory.SelectedIndex != -1)
-                {
-                    DataGridRow r = (DataGridRow)dgInventory.ItemContainerGenerator.ContainerFromIndex(dgInventory.SelectedIndex);
-                    DataGridCell iCode = dgInventory.Columns[0].GetCellContent(r).Parent as DataGridCell;
-                    DataGridCell iDesc = dgInventory.Columns[1].GetCellContent(r).Parent as DataGridCell;
-                    DataGridCell iCost = dgInventory.Columns[2].GetCellContent(r).Parent as DataGridCell;
-                    tbItemCodeInp.Text = ((TextBlock)iCode.Content).Text;
-                    tbItemDescInp.Text = ((TextBlock)iDesc.Content).Text;
-                    tbItemCostInp.Text = ((TextBlock)iCost.Content).Text;
-                }
+                clsInventory clsI = (clsInventory)dgInventory.SelectedItem;
+                tbItemCodeInp.Text = clsI.InventoryLetter;
+                tbItemDescInp.Text = clsI.ItemDesc;
+                tbItemCostInp.Text = clsI.ItemCost.ToString();
                 
             }
             catch (Exception ex)
@@ -223,11 +207,12 @@ namespace Group9FinalProject
                                 cboInventoryCost.SelectedItem = null;
 
                                 invp = clsPopInventory.theInventory();
-                                count = 0;
                                 dgInventory.ItemsSource = invp;
                                 tbItemCodeInp.Text = "";
                                 tbItemDescInp.Text = "";
                                 tbItemCostInp.Text = "";
+                                btnDeleteItem.IsEnabled = false;
+                                btnEditItem.IsEnabled = false;
                             }
                         }
                     }
@@ -253,11 +238,12 @@ namespace Group9FinalProject
                                 cboInventoryCost.SelectedItem = null;
 
                                 invp = clsPopInventory.theInventory();
-                                count = 0;
                                 dgInventory.ItemsSource = invp;
                                 tbItemCodeInp.Text = "";
                                 tbItemDescInp.Text = "";
                                 tbItemCostInp.Text = "";
+                                btnDeleteItem.IsEnabled = false;
+                                btnEditItem.IsEnabled = false;
                             }
                         }
                     }
@@ -285,6 +271,7 @@ namespace Group9FinalProject
             try
             {
                 clsInventoryBtnLogic invBtn = new clsInventoryBtnLogic();
+                clsInventory clsI = (clsInventory)dgInventory.SelectedItem;
                 
                 // Checks if the item was deleted or not
                 Boolean succeed = false;
@@ -294,7 +281,7 @@ namespace Group9FinalProject
 
                 if (res.ToString() == "Yes")
                 {
-                    succeed = invBtn.DeleteButtonLogic(ItemCodeRowSelected);
+                    succeed = invBtn.DeleteButtonLogic(clsI.InventoryLetter);
 
                     if (succeed == false)
                     {
@@ -312,8 +299,9 @@ namespace Group9FinalProject
                         cboInventoryCost.SelectedItem = null;
 
                         invp = clsPopInventory.theInventory();
-                        count = 0;
                         dgInventory.ItemsSource = invp;
+                        btnDeleteItem.IsEnabled = false;
+                        btnEditItem.IsEnabled = false;
                     }
                 }
             }
@@ -378,7 +366,6 @@ namespace Group9FinalProject
                 cboInventoryCost.SelectedItem = null;
 
                 invp = clsPopInventory.theInventory();
-                count = 0;
                 dgInventory.ItemsSource = invp;
             }
             catch (Exception ex)
@@ -391,8 +378,7 @@ namespace Group9FinalProject
 
         #region Datagrid selection
         /// <summary>
-        /// Gets the row selection (ItemCode value) and assigns ItemCodeRowSelected to this value.
-        /// The count is so that the method does not throw an exception as soon as the window is opened.
+        /// Enables the buttons when something is selected
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -400,19 +386,8 @@ namespace Group9FinalProject
         {
             try
             {
-                   if (count > 0)
-                    {
-                            DataGridRow r = (DataGridRow)dgInventory.ItemContainerGenerator.ContainerFromIndex(dgInventory.SelectedIndex);
-                            DataGridCell iCode = dgInventory.Columns[0].GetCellContent(r).Parent as DataGridCell;
-                            DataGridCell iDesc = dgInventory.Columns[1].GetCellContent(r).Parent as DataGridCell;
-                            DataGridCell iCost = dgInventory.Columns[2].GetCellContent(r).Parent as DataGridCell;
-                            ItemCodeRowSelected = ((TextBlock)iCode.Content).Text;
-                            ItemDescRowSelected = ((TextBlock)iDesc.Content).Text;
-                            ItemCostRowSelected = ((TextBlock)iCost.Content).Text;
-                            btnDeleteItem.IsEnabled = true;                      
-                     }
-
-                count++;
+                btnDeleteItem.IsEnabled = true;
+                btnEditItem.IsEnabled = true;
             }
             catch (Exception ex)
             {
@@ -433,8 +408,6 @@ namespace Group9FinalProject
             try
             {
                 invp = from item in invp where item.InventoryLetter.ToString().Equals(cboInventoryCode.SelectedItem) select item;
-                dgInventory.SelectedIndex = 0;
-                count = 0;
                 dgInventory.ItemsSource = invp;
                 
             }
@@ -455,8 +428,6 @@ namespace Group9FinalProject
             try
             {
                 invp = from item in invp where item.ItemCost.ToString().Equals(cboInventoryCost.SelectedItem) select item;
-                dgInventory.SelectedIndex = 0;
-                count = 0;
                 dgInventory.ItemsSource = invp;
             }
             catch (Exception ex)
@@ -476,7 +447,6 @@ namespace Group9FinalProject
             try
             {
                 invp = from item in invp where item.ItemDesc.ToLower().StartsWith(tbItemDescInpSrchBar.Text) select item;
-                count = 0;
                 dgInventory.ItemsSource = invp;
             }
             catch(Exception ex)
@@ -485,25 +455,7 @@ namespace Group9FinalProject
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
-
-        /// <summary>
-        /// When a sorting header is clicked, turns count to 0 so the DataGridRow
-        /// doesn't throw an exception because nothing was selected for method sltCellChange
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DGSortingClick(object sender, DataGridSortingEventArgs e)
-        {
-            try
-            {
-                count = 0;
-            }
-            catch (Exception ex)
-            {
-                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                            MethodInfo.GetCurrentMethod().Name, ex.Message);
-            }
-        }
+        
         #endregion
 
         #region error handling
