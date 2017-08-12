@@ -446,7 +446,7 @@ namespace Group9FinalProject
         {
             try
             {
-                invp = from item in invp where item.ItemDesc.Contains(tbItemDescInpSrchBar.Text) select item;
+                invp = from item in invp where item.ItemDesc.ToLower().Contains((tbItemDescInpSrchBar.Text).ToLower()) select item;
                 dgInventory.ItemsSource = invp;
             }
             catch(Exception ex)
