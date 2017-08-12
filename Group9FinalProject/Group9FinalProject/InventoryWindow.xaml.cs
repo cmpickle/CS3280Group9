@@ -73,7 +73,7 @@ namespace Group9FinalProject
             // Says if content of text box was all numbers or not
             Boolean allNum = false;
             // Assigns iCode the value in tbItemCodeInp
-            string iCode = tbItemCodeInp.Text;
+            string iCode = tbItemCodeInp.Text.ToUpper();
             // Assigns iDesc the value in tbItemDescInp
             string iDesc = tbItemDescInp.Text;
             // Assigns iCost the value in tbItemCostInp
@@ -167,7 +167,7 @@ namespace Group9FinalProject
                 // Checks if the value inside itemCost was all numbers or not
                 Boolean allNum = false;
                 // Assigns primKey to the value in tbItemCodeInp text box
-                string primKey = tbItemCodeInp.Text;
+                string primKey = tbItemCodeInp.Text.ToUpper();
                 // Assigns itemDesc to the value in tbItemDescInp text box
                 string itemDesc = tbItemDescInp.Text;
                 // Assigns ItemCost to the value in tbItemCostInp text box
@@ -446,7 +446,7 @@ namespace Group9FinalProject
         {
             try
             {
-                invp = from item in invp where item.ItemDesc.ToLower().StartsWith(tbItemDescInpSrchBar.Text) select item;
+                invp = from item in invp where item.ItemDesc.Contains(tbItemDescInpSrchBar.Text) select item;
                 dgInventory.ItemsSource = invp;
             }
             catch(Exception ex)
