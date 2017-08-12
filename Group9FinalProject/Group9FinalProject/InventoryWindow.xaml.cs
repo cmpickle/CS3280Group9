@@ -367,6 +367,9 @@ namespace Group9FinalProject
 
                 invp = clsPopInventory.theInventory();
                 dgInventory.ItemsSource = invp;
+
+                btnDeleteItem.IsEnabled = false;
+                btnEditItem.IsEnabled = false;
             }
             catch (Exception ex)
             {
