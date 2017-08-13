@@ -12,7 +12,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Invoices" Height="600" Width="800" WindowStartupLocation="CenterScreen" GotFocus="InvoiceWindow_GotFocus" >
+        Title="Invoices" Height="600" Width="800" WindowStartupLocation="CenterScreen" >
     <Grid>
         <Menu x:Name="menu" Height="26" VerticalAlignment="Top" RenderTransformOrigin="0.505,-1.269" BorderBrush="White">
             <MenuItem x:Name="miUpdateInventory" Header="_Update Inventory" BorderBrush="Gainsboro" Click="miUpdateInventory_Click" Height="26"/>

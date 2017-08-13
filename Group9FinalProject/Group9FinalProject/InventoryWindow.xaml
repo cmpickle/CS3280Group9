@@ -13,14 +13,15 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Update Inventory" Height="600" Width="764" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Update Inventory" Height="600" Width="764" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closed="InventoryWindow_Closed">
     <Window.Resources>
         <local:InvoiceDataSet x:Key="invoiceDataSet"/>
         <CollectionViewSource x:Key="itemDescViewSource" Source="{Binding ItemDesc, Source={StaticResource invoiceDataSet}}"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource itemDescViewSource}" Margin="0,0,3.6,0.4">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="330*"/>
+            <ColumnDefinition Width="47*"/>
         </Grid.ColumnDefinitions>
         <GroupBox x:Name="groupBox1" Header="Search By" HorizontalAlignment="Left" Margin="14,10,0,0" VerticalAlignment="Top" Height="82" Width="637" FontWeight="Bold"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="456,45,0,0" TextWrapping="Wrap" Text="Item Cost:" VerticalAlignment="Top" FontWeight="Normal"/>
@@ -28,7 +29,7 @@
         <TextBlock x:Name="tblItemCode" HorizontalAlignment="Left" Text="Item Code:" Margin="25,45,0,0" VerticalAlignment="Top" Height="21" Width="78" />
 
 
-        <GroupBox x:Name="groupBox" Header="Edit Item" HorizontalAlignment="Left" Margin="16,421,0,0" VerticalAlignment="Top" Height="79" Width="724" FontWeight="Bold">
+        <GroupBox x:Name="groupBox" Header="Edit Item" HorizontalAlignment="Left" Margin="16,421,0,0" VerticalAlignment="Top" Height="79" Width="724" FontWeight="Bold" Grid.ColumnSpan="2">
 
         </GroupBox>
         <TextBox x:Name="tbItemDescInpSrchBar" HorizontalAlignment="Left" Margin="145,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275" TextChanged="SortByItemDesc"/>
@@ -36,7 +37,7 @@
         <Button x:Name="btnDeleteItem" Content="Delete Item" HorizontalAlignment="Left" Margin="351,510,0,0" VerticalAlignment="Top" Click="btnDeleteItem_Click"/>
         <Button x:Name="btnSave" Content="Save Changes" HorizontalAlignment="Left" Margin="219,510,0,0" VerticalAlignment="Top" Click="btnSave_Click"/>
         <Button x:Name="btnAddInventory" Content="Add Item" HorizontalAlignment="Left" Margin="16,510,0,0" VerticalAlignment="Top" Click="btnAddInvoice_Click"/>
-        <DataGrid x:Name="dgInventory" AutoGenerateColumns="False" CanUserAddRows="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="16,97,13.6,153" RowDetailsVisibilityMode="VisibleWhenSelected" IsReadOnly="True" SelectionMode="Single" SelectedCellsChanged="sltCellChange">
+        <DataGrid x:Name="dgInventory" AutoGenerateColumns="False" CanUserAddRows="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="16,97,14,152.6" RowDetailsVisibilityMode="VisibleWhenSelected" IsReadOnly="True" SelectionMode="Single" SelectedCellsChanged="sltCellChange" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="itemCodeColumn" Binding="{Binding InventoryLetter}" Header="Code" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="itemDescColumn" Binding="{Binding ItemDesc}" Header="Description" Width="250"/>
@@ -78,8 +79,8 @@
         <TextBox x:Name="tbItemDescInp" HorizontalAlignment="Left" Height="23" Margin="190,472,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" MaxLines="2" MaxLength="35" MinLines="1"/>
         <TextBox x:Name="tbItemCostInp" HorizontalAlignment="Left" Height="23" Margin="507,472,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" MaxLength="10"/>
         <Button x:Name="btnEditItem" Content="Edit Item" HorizontalAlignment="Left" Margin="118,510,0,0" VerticalAlignment="Top" Click="btnEditInventory_Click"/>
-        <Button x:Name="btnClearText" Content="Clear" HorizontalAlignment="Left" Margin="666,462,0,0" VerticalAlignment="Top" Click="btnClear_Click"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="666,509,0,0" VerticalAlignment="Top" Click="btnCancel_Click"/>
+        <Button x:Name="btnClearText" Content="Clear" HorizontalAlignment="Left" Margin="5.564,462,0,0" VerticalAlignment="Top" Click="btnClear_Click" Grid.Column="1"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="5.564,509,0,0" VerticalAlignment="Top" Click="btnCancel_Click" Grid.Column="1"/>
         <ComboBox x:Name="cboInventoryCost" HorizontalAlignment="Left" Margin="458,63,0,0" VerticalAlignment="Top" Width="83" Height="25" SelectionChanged="SortByItemCost"/>
         <ComboBox x:Name="cboInventoryCode" HorizontalAlignment="Left" Margin="28, 63,0,0"  VerticalAlignment="Top" Width="83" Height="25" SelectionChanged="SortByItemCode">
             <ComboBox.DataContext>
