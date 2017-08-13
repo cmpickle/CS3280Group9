@@ -315,6 +315,17 @@ namespace Group9FinalProject
             return sSQL;
 
         }
+
+        /// <summary>
+        /// Passes in an itemCode and gets an invoiceNum back
+        /// </summary>
+        /// <param name="itemCode"></param>
+        /// <returns></returns>
+        public string RetrieveLineItems_MatchingIC_InvNum(string itemCode)
+        {
+            string sSQL = "SELECT DISTINCT InvoiceNum FROM LineItems WHERE ItemCode = \"" + itemCode + "\"";
+            return sSQL;
+        }
         #endregion
     }
 }
