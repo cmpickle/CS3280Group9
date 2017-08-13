@@ -14,6 +14,7 @@ namespace Group9FinalProject
     
     class clsInventoryBtnLogic
     {
+        #region Attributes
         /// <summary>
         /// Connects to the clsDataAccess class
         /// </summary>
@@ -25,6 +26,11 @@ namespace Group9FinalProject
         clsSQL SQLQueries = new clsSQL();
 
         /// <summary>
+        /// DataSet type
+        /// </summary>
+        DataSet ds = new DataSet();
+
+        /// <summary>
         /// Obtains a list from LineItems table, ItemCodes column
         /// </summary>
         List<String> LineItem_ItemCodes = new List<String>();
@@ -33,7 +39,57 @@ namespace Group9FinalProject
         /// Obtains information from clsPopulateInventoryPg
         /// </summary>
         clsPopulateInventoryPg clsPopInventory = new clsPopulateInventoryPg();
-        
+        #endregion
+
+        #region Add Button
+        /// <summary>
+        /// Logic for the add button. Adds items to the inventory list. 
+        /// </summary>
+        /// <param name="primKey"></param>
+        /// <param name="itemDesc"></param>
+        /// <param name="cost"></param>
+        /// <returns></returns>
+        public Boolean AddInventoryRow(string primKey, string itemDesc, decimal cost)
+        {
+            try
+            {
+                clsPopulateInventoryPg clsPopInv = new clsPopulateInventoryPg();
+
+                // Returned if row was added or not
+                Boolean rowAdded = false;
+
+                // In case a row needs to be returned
+                int rowAddedToDb;
+
+                // Counts if there are matching primary key values. If 1 or more it wont try to add.
+                int count = 0;
+                List<string> curPK = clsPopInv.GetInventoryCode();
+                foreach (string code in curPK)
+                {
+                    if (primKey == code)
+                    {
+                        count++;
+                    }
+                }
+
+                if (count == 0)
+                {
+                    rowAddedToDb = db.ExecuteNonQuery(SQLQueries.AddInventoryItem(primKey, itemDesc, cost));
+                    rowAdded = true;
+                }
+
+                return rowAdded;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region Save button
         /// <summary>
         /// Checks if the Primary key letter(s) already exists in the inventory database.
         /// If so, the user will be promt if they want to overwrite the current data or not. 
@@ -92,44 +148,10 @@ namespace Group9FinalProject
         /// <param name="itemDesc"></param>
         /// <param name="cost"></param>
         /// <returns></returns>
-        public Boolean AddInventoryRow(string primKey, string itemDesc, decimal cost)
-        {
-            try
-            {
-                clsPopulateInventoryPg clsPopInv = new clsPopulateInventoryPg();
+        /// 
+        #endregion       
 
-                // Returned if row was added or not
-                Boolean rowAdded = false;
-
-                // In case a row needs to be returned
-                int rowAddedToDb;
-
-                // Counts if there are matching primary key values. If 1 or more it wont try to add.
-                int count = 0;
-                List<string> curPK = clsPopInv.GetInventoryCode();
-                foreach (string code in curPK)
-                {
-                    if (primKey == code)
-                    {
-                        count++;
-                    }
-                }
-
-                if (count == 0)
-                {
-                    rowAddedToDb = db.ExecuteNonQuery(SQLQueries.AddInventoryItem(primKey, itemDesc, cost));
-                    rowAdded = true;
-                }
-
-                return rowAdded;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
+        #region Delete button
         /// <summary>
         /// This is the logic behind the delete button on the InventoryWindow page.
         /// Takes the selected row, sends the primary key letter, compares it with LineItems 
@@ -182,5 +204,46 @@ namespace Group9FinalProject
 
             
         }
+
+        /// <summary>
+        /// Gets the list of invoices that an item code is currently associated with.
+        /// </summary>
+        /// <param name="itemCode"></param>
+        /// <returns></returns>
+        public string getExistingInvoicesOfItemCode(string itemCode)
+        {
+            try
+            {
+                List<String> Ret = new List<String>();
+                string toRet = "";
+                int num = 0;
+                int cnt = 0;
+                ds = db.ExecuteSQLStatement(SQLQueries.RetrieveLineItems_MatchingIC_InvNum(itemCode), ref num);
+                for (int i = 0; i < num; ++i)
+                    {
+                        Ret.Add(ds.Tables[0].Rows[i][0].ToString());
+                    }
+                foreach (string st in Ret)
+                {
+                    toRet += st;
+                    if (num > 0 && cnt != num-1)
+                    {
+                        toRet += ", ";
+                        cnt++;
+                    }
+                }
+
+                toRet += ".";
+
+                return toRet;
+             }
+            catch (Exception ex)
+            {
+                //Just throw the exception
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+        #endregion
     }
 }

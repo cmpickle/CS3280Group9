@@ -22,7 +22,9 @@ namespace Group9FinalProject
     /// Interaction logic for InventoryWindow.xaml
     /// </summary>
     public partial class InventoryWindow : Window
-    {   /// <summary>
+    {
+        #region Attributes
+        /// <summary>
         /// Connects to the clsInventory class
         /// </summary>
         clsPopulateInventoryPg clsPopInventory;
@@ -31,7 +33,9 @@ namespace Group9FinalProject
         /// Populates the datagrid for start and when items are selected on the search bar
         /// </summary>
         IEnumerable<clsInventory> invp;
+        #endregion 
 
+        #region Constructor
         /// <summary>
         /// The code behind the GUI. Pulls info in from other classes.
         /// </summary>
@@ -56,6 +60,7 @@ namespace Group9FinalProject
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
+        #endregion
 
         #region Button statements
         /// <summary>
@@ -272,6 +277,9 @@ namespace Group9FinalProject
             {
                 clsInventoryBtnLogic invBtn = new clsInventoryBtnLogic();
                 clsInventory clsI = (clsInventory)dgInventory.SelectedItem;
+
+                // Shows existing invoices if item can't be deleted.
+                string invoiceExist;
                 
                 // Checks if the item was deleted or not
                 Boolean succeed = false;
@@ -285,7 +293,9 @@ namespace Group9FinalProject
 
                     if (succeed == false)
                     {
-                        MessageBox.Show("Item was not deleted. Item code is associated with existing invoices.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        invoiceExist = invBtn.getExistingInvoicesOfItemCode(clsI.InventoryLetter);
+                        MessageBox.Show("Item was not deleted. Item code is associated with invoice: " + invoiceExist, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        
                     }
                     else
                     {

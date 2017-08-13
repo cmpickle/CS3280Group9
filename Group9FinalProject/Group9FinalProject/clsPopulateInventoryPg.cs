@@ -15,7 +15,8 @@ namespace Group9FinalProject
     /// as well as, populates the comboBoxes
     /// </summary>
     class clsPopulateInventoryPg
-    {   
+    {
+        #region Attributes
         /// <summary>
         /// Connects to the clsDataAccess class
         /// </summary>
@@ -36,8 +37,10 @@ namespace Group9FinalProject
         /// This interface will be used to call the 
         /// implemented refresh function in Invoice Window to refresh the updated items info
         /// </summary>
-        InvoiceInterface invoiceInterface;       
-        
+        InvoiceInterface invoiceInterface;
+        #endregion
+
+        #region Constructor
         /// <summary>
         /// clsPopulateInventoryPg constructor
         /// </summary>
@@ -57,7 +60,9 @@ namespace Group9FinalProject
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+        #endregion
 
+        #region Datagrid all inventory information
         /// <summary>
         /// Provides the information for the InventoryWindow from the database
         /// </summary>
@@ -88,7 +93,9 @@ namespace Group9FinalProject
 
             return inv;
         }
+        #endregion
 
+        #region Search bar Inventory Code combobox
         /// <summary>
         /// Returns the Inventory code to the combo box for searching
         /// </summary>
@@ -115,7 +122,9 @@ namespace Group9FinalProject
 
             return toRet;
         }
+        #endregion
 
+        #region Search bar Inventory Cost combobox
         /// <summary>
         /// Returns the item cost to the combo box for searching by price
         /// </summary>
@@ -142,7 +151,9 @@ namespace Group9FinalProject
 
             return toRet;
         }
+        #endregion
 
+        #region Get LineItems Item Codes
         /// <summary>
         /// Retrieves ItemCodes from LineItems
         /// </summary>
@@ -167,8 +178,13 @@ namespace Group9FinalProject
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
             return toRet;
-        } 
-        
+        }
+        #endregion
+
+        #region Refresh Invoice when Inventory window closes
+        /// <summary>
+        /// Refreshes the invoice window when the Inventory window is closed
+        /// </summary>
         public void RefreshInvoiceItems()
         {
             try
@@ -181,7 +197,7 @@ namespace Group9FinalProject
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-        }
+        }     
 
         /// <summary>
         /// Sets the instance of the InvoiceInterface for the class
@@ -200,6 +216,6 @@ namespace Group9FinalProject
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
-
+        #endregion
     }
 }
